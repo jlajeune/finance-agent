@@ -36,5 +36,14 @@ will not read the raw JSON. Be rigorous, balanced, and explicit about uncertaint
   survivorship/selection bias present, no investment advice.
 - Be honest if the cycle produced nothing that survived — that is a valid, useful result.
 
+## Capture a run artifact
+After writing the report, persist a durable, ID'd record with
+`finance_agent.runlog.record_run(manifest, artifacts=[...])` — it creates
+`runs/run-XXXX-<UTCstamp>/` (manifest + copied report/eval JSONs) and appends a row to
+`runs/INDEX.md`. The manifest must include cycle, per-strategy `{id, family, net_sharpe,
+verdict, reason}`, survivor count, a one-line summary, and next-cycle seeds. This is what
+makes each cycle traceable in GitHub.
+
 ## Output
-Write the markdown file and return its path plus a 3-bullet TL;DR for the orchestrator.
+Write the markdown file, record the run artifact, and return the report path, the run id,
+plus a 3-bullet TL;DR for the orchestrator.

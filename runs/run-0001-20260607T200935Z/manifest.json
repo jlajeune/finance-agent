@@ -1,0 +1,49 @@
+{
+  "run_id": "run-0001-20260607T200935Z",
+  "created_utc": "2026-06-07T20:09:35Z",
+  "cycle": 1,
+  "universe": "default (40 large-cap equities + core ETFs)",
+  "data_source": "yfinance",
+  "data_span": "2010-01-04..2026-06-05 (4131 trading days)",
+  "cost_bps": 5,
+  "execution_lag": 1,
+  "n_trials": 2,
+  "idea_provenance": "internal LLM knowledge (lit-scout web research NOT run this cycle)",
+  "strategies": [
+    {
+      "id": "xs_reversal_idio_5d",
+      "family": "short_term_reversal",
+      "net_sharpe": -0.35,
+      "gross_sharpe": 0.22,
+      "oos_sharpe": -0.48,
+      "avg_turnover": 0.362,
+      "deflated_sharpe_pass": false,
+      "verdict": "REJECT",
+      "reason": "faint gross edge (+0.22) fully eaten by costs; only positive at 0bps"
+    },
+    {
+      "id": "lowvol_idio_beta_neutral",
+      "family": "low_volatility",
+      "net_sharpe": -0.56,
+      "gross_sharpe": -0.54,
+      "oos_sharpe": -0.66,
+      "avg_turnover": 0.009,
+      "deflated_sharpe_pass": false,
+      "verdict": "REJECT",
+      "reason": "no edge even gross; survivorship-biased mega-cap universe penalizes the high-idio-vol short leg"
+    }
+  ],
+  "survivors": 0,
+  "summary": "2 diverse look-ahead-clean strategies generated in parallel; both REJECTED. Reversal has a real but uneconomic gross edge; low-vol fails due to survivorship-biased universe, not a bug.",
+  "next_cycle_seeds": [
+    "low-turnover families (time_series_momentum, trend_following, cross_asset, seasonality)",
+    "re-test low-vol on a broad point-in-time universe",
+    "dispatch lit-scout for live web-sourced ideas",
+    "reversal revision engineered for ~3-5x lower turnover"
+  ],
+  "artifacts": [
+    "cycle_1_report.md",
+    "eval_xs_reversal_idio_5d.json",
+    "eval_lowvol_idio_beta_neutral.json"
+  ]
+}

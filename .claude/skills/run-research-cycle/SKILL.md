@@ -55,6 +55,21 @@ Dispatch **portfolio-reporter** to synthesize `reports/cycle_N_report.md`: the c
 map, validated strategies, current picks, what was learned, and seeds for the next
 cycle. Surface the report path and TL;DR to the user.
 
+## 7. Capture a durable run artifact (always)
+Record the cycle as a traceable, ID'd artifact so results are reviewable in GitHub:
+```python
+from finance_agent.runlog import record_run
+record_run({
+    "cycle": N, "universe": "...", "data_span": "...", "cost_bps": 5, "n_trials": K,
+    "idea_provenance": "lit-scout web research | internal knowledge",
+    "strategies": [{"id": ..., "family": ..., "net_sharpe": ..., "verdict": "PASS|REVISE|REJECT", "reason": ...}],
+    "survivors": <int>, "summary": "...", "next_cycle_seeds": [...],
+}, artifacts=["reports/cycle_N_report.md", "reports/eval_<id>.json", ...])
+```
+This creates `runs/run-XXXX-<UTCstamp>/` (manifest + copied artifacts) and appends a row
+to `runs/INDEX.md`. The run id is both incrementing and datetime-based. Then **commit and
+push** `runs/`, `strategies/`, and `ledger/strategies.jsonl` so the cycle is captured.
+
 ## Guardrails
 - **No look-ahead, ever** — the engine enforces an execution lag, but reject any
   strategy whose code peeks forward.
