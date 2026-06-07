@@ -1,0 +1,113 @@
+{
+  "id": "xs_reversal_idio_5d",
+  "thesis": "Cross-sectional short-term reversal as liquidity-provision compensation, refined two ways: (1) fade only the IDIOSYNCRATIC part of each stock's recent move by residualizing against the equal-weight market, so we don't short beta into market drawdowns; (2) AMPLITUDE-weight the contrarian bet by the move's trailing-volatility z-score, since larger abnormal dislocations carry larger reversal premia. Dollar-neutral, multi-day holding to let the snap-back play out.",
+  "taxonomy": [
+    "short_term_reversal"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "lookback": 5,
+    "vol_window": 60,
+    "rebalance": 3,
+    "clip_z": 3.0
+  },
+  "headline": {
+    "ann_return": -0.030450106841018454,
+    "ann_vol": 0.08014986023684663,
+    "sharpe": -0.34576215806778937,
+    "sortino": -0.35580284739877654,
+    "max_drawdown": -0.49492222254694207,
+    "calmar": -0.061525034548494825,
+    "hit_rate": 0.47252481239409344,
+    "t_stat": -1.399925058043006,
+    "n_obs": 4131,
+    "avg_turnover": 0.36206720885396676,
+    "gross_sharpe": 0.22386155754849074,
+    "cost_drag_ann": 0.045270481887036085
+  },
+  "oos": {
+    "split_at": "2019-11-06",
+    "in_sample": {
+      "ann_return": -0.016526541883498336,
+      "ann_vol": 0.06458472804506235,
+      "sharpe": -0.2257512918932404,
+      "sortino": -0.23207557339513177,
+      "max_drawdown": -0.20781834355549955,
+      "calmar": -0.07952398041843112,
+      "hit_rate": 0.4689265536723164,
+      "t_stat": -0.7079142016864938,
+      "n_obs": 2478
+    },
+    "out_of_sample": {
+      "ann_return": -0.05095444195009724,
+      "ann_vol": 0.09901100429670354,
+      "sharpe": -0.4787339155395795,
+      "sortino": -0.49357209309227984,
+      "max_drawdown": -0.3735415382626579,
+      "calmar": -0.1364090381677133,
+      "hit_rate": 0.4779189352692075,
+      "t_stat": -1.2261125909625012,
+      "n_obs": 1653
+    },
+    "sharpe_decay": 0.2529826236463391
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.09402948439974199,
+      -0.4904950202775144,
+      -0.6552087775252418,
+      -0.28908654784793014
+    ],
+    "mean_sharpe": -0.3351902153127361,
+    "std_sharpe": 0.3229481699285932,
+    "fraction_positive": 0.25
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.22386155754849074,
+      "5": -0.34576215806778937,
+      "10": -0.9106532857617683,
+      "20": -2.008487144887341,
+      "40": -3.98011745241171
+    },
+    "ann_return": {
+      "0": 0.014820375046017631,
+      "5": -0.030450106841018454,
+      "10": -0.07372540467319888,
+      "20": -0.15463415987792972,
+      "40": -0.2960898305672851
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": -0.021780968643437523,
+    "n_trials": 2,
+    "n_obs": 4131,
+    "deflated_sharpe_prob": 1.1600958935739756e-263,
+    "passes": false
+  },
+  "latest_weights": {
+    "ORCL": -0.0715,
+    "AVGO": -0.0713,
+    "XLK": -0.0586,
+    "AMZN": 0.0499,
+    "PG": 0.0421,
+    "GOOGL": 0.0384,
+    "KO": 0.0371,
+    "JNJ": 0.0368,
+    "CVX": -0.0354,
+    "CSCO": -0.0352,
+    "COST": 0.0351,
+    "MA": 0.0347,
+    "V": 0.0324,
+    "MRK": 0.031,
+    "BAC": -0.0303,
+    "PEP": 0.0302,
+    "XLE": -0.03,
+    "PFE": 0.0296,
+    "DIS": 0.0295,
+    "MSFT": -0.0286
+  }
+}

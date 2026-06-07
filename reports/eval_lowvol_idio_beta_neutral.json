@@ -1,0 +1,113 @@
+{
+  "id": "lowvol_idio_beta_neutral",
+  "thesis": "Beta-neutral idiosyncratic-volatility low-vol: each month regress every stock's daily returns on an equal-weight market proxy over a trailing window, take the residual (idiosyncratic) volatility, go long the lowest-idio-vol names and short the highest, then neutralize net market beta. Captures the lottery-preference / arbitrage-asymmetry anomaly (dull stocks underpriced, lottery-like high-idio-vol stocks overpriced) rather than a disguised low-beta tilt; dollar-neutral and beta-neutral, rebalanced monthly.",
+  "taxonomy": [
+    "low_volatility"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "window": 126,
+    "quantile": 0.3,
+    "rebalance": 21,
+    "min_names": 8
+  },
+  "headline": {
+    "ann_return": -0.02563335691124169,
+    "ann_vol": 0.0444323826717743,
+    "sharpe": -0.5621731242594414,
+    "sortino": -0.5395234305029968,
+    "max_drawdown": -0.38314486229841405,
+    "calmar": -0.06690252025688664,
+    "hit_rate": 0.4679254417816509,
+    "t_stat": -2.2761318011406533,
+    "n_obs": 4131,
+    "avg_turnover": 0.009293636100058709,
+    "gross_sharpe": -0.535815400970889,
+    "cost_drag_ann": 0.0011417578264741879
+  },
+  "oos": {
+    "split_at": "2019-11-06",
+    "in_sample": {
+      "ann_return": -0.019044893682885533,
+      "ann_vol": 0.03792750185676809,
+      "sharpe": -0.48800458203663805,
+      "sortino": -0.4719520654686473,
+      "max_drawdown": -0.22903593760449836,
+      "calmar": -0.08315242525726445,
+      "hit_rate": 0.4608555286521388,
+      "t_stat": -1.530291903158592,
+      "n_obs": 2478
+    },
+    "out_of_sample": {
+      "ann_return": -0.03542727623256692,
+      "ann_vol": 0.05270765176845771,
+      "sharpe": -0.6579246885813349,
+      "sortino": -0.6338997031256997,
+      "max_drawdown": -0.23561264979216368,
+      "calmar": -0.15036236918441212,
+      "hit_rate": 0.4785238959467635,
+      "t_stat": -1.6850482457785338,
+      "n_obs": 1653
+    },
+    "sharpe_decay": 0.16992010654469686
+  },
+  "subsample": {
+    "sub_sharpes": [
+      -0.5939769701996341,
+      -0.7217302182977514,
+      -0.3951359730180911,
+      -0.6064097469914984
+    ],
+    "mean_sharpe": -0.5793132271267438,
+    "std_sharpe": 0.13558897085787727,
+    "fraction_positive": 0.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": -0.535815400970889,
+      "5": -0.5621731242594414,
+      "10": -0.5884828905247634,
+      "20": -0.6409327998665749,
+      "40": -0.7449767946920234
+    },
+    "ann_return": {
+      "0": -0.0244915990847675,
+      "5": -0.02563335691124169,
+      "10": -0.026773941300763493,
+      "20": -0.02905159399781121,
+      "40": -0.033592864619781726
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": -0.035413578108445094,
+    "n_trials": 2,
+    "n_obs": 4131,
+    "deflated_sharpe_prob": 1.0588262166933968e-281,
+    "passes": false
+  },
+  "latest_weights": {
+    "BRK-B": 0.0537,
+    "HYG": 0.0537,
+    "TLT": 0.0537,
+    "XLF": 0.0537,
+    "MCD": 0.0537,
+    "KO": 0.0537,
+    "JNJ": 0.0537,
+    "IWM": 0.0537,
+    "XLV": 0.0537,
+    "XLK": 0.0537,
+    "SPY": 0.0537,
+    "QQQ": 0.0537,
+    "ACN": -0.0296,
+    "AVGO": -0.0296,
+    "DIS": -0.0296,
+    "CSCO": -0.0296,
+    "GOOGL": -0.0296,
+    "GLD": -0.0296,
+    "MSFT": -0.0296,
+    "META": -0.0296
+  }
+}
