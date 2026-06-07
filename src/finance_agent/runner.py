@@ -48,7 +48,11 @@ def evaluate(strategy_path: str | Path, start: str = "2010-01-01",
     params = getattr(spec, "params", {}) or {}
     weight_fn = lambda p: mod.generate_weights(p, **params)  # noqa: E731
 
-    result = run_backtest(prices, weight_fn(prices), cost_bps=cost_bps)
+    # Strategies that vary their net exposure (vol-targeting / market-timing) opt out of
+    # per-row gross normalization via SPEC.gross_leverage = None.
+    gl = getattr(spec, "gross_leverage", 1.0)
+
+    result = run_backtest(prices, weight_fn(prices), cost_bps=cost_bps, gross_leverage=gl)
     report = {
         "id": spec.id,
         "thesis": spec.thesis,
@@ -56,10 +60,11 @@ def evaluate(strategy_path: str | Path, start: str = "2010-01-01",
         "feature_families": spec.feature_families,
         "universe": spec.universe,
         "params": params,
+        "gross_leverage": gl,
         "headline": result.stats(),
-        "oos": validation.split_oos(prices, weight_fn, cost_bps=cost_bps),
-        "subsample": validation.subsample_stability(prices, weight_fn, cost_bps=cost_bps),
-        "cost_sensitivity": validation.cost_sensitivity(prices, weight_fn).to_dict(),
+        "oos": validation.split_oos(prices, weight_fn, cost_bps=cost_bps, gross_leverage=gl),
+        "subsample": validation.subsample_stability(prices, weight_fn, cost_bps=cost_bps, gross_leverage=gl),
+        "cost_sensitivity": validation.cost_sensitivity(prices, weight_fn, gross_leverage=gl).to_dict(),
         "deflated_sharpe": validation.deflated_sharpe_report(result.returns, n_trials),
         "latest_weights": _latest_nonzero_weights(result.weights),
     }

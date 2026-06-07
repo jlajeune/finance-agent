@@ -1,0 +1,45 @@
+{
+  "run_id": "run-0002-20260607T202351Z",
+  "created_utc": "2026-06-07T20:23:51Z",
+  "cycle": 2,
+  "mode": "real web-research cycle (1 subagent: lit-scout)",
+  "universe": "SPY (within default panel)",
+  "data_source": "yfinance (Yahoo Finance public HTTP endpoints, no key)",
+  "data_span": "2010-01-04..2026-06-05 headline; 2000-2026 crisis robustness test",
+  "cost_bps": 5,
+  "execution_lag": 1,
+  "n_trials": 1,
+  "idea_provenance": "live web research (lit-scout): Man Group, Research Affiliates, Xu 2024 SSRN 4778937, Moskowitz-Ooi-Pedersen 2012",
+  "strategies": [
+    {
+      "id": "voltarget_spy",
+      "family": "volatility_timing",
+      "net_sharpe": 0.86,
+      "vs_spy_sharpe": 0.86,
+      "max_drawdown": -0.199,
+      "spy_max_drawdown": -0.337,
+      "avg_turnover": 0.0042,
+      "deflated_sharpe_pass": true,
+      "crisis_2000_2026_sharpe": 0.6,
+      "crisis_2000_2026_spy_sharpe": 0.51,
+      "verdict": "PASS",
+      "reason": "robust low-turnover vol-targeting overlay; matches SPY Sharpe with -14pp drawdown (beats SPY +0.09 Sharpe and -24pp DD with crises in-sample); cost-robust to 40bps; OOS decay 0.02; smooth 25-cell parameter plateau; look-ahead-clean"
+    }
+  ],
+  "survivors": 1,
+  "current_recommendation": "~76% SPY / ~24% cash per live vol target (risk-managed allocation, not investment advice)",
+  "summary": "Real web-research cycle. Top lit-scout seed (vol-targeting) implemented and PASSED: same Sharpe as SPY but -14pp drawdown (-24pp and +0.09 Sharpe edge with crises in-sample), negligible cost, robust plateau, OOS-stable. First validated strategy.",
+  "next_cycle_seeds": [
+    "modest leverage cap 1.5x to test Sharpe beat in calm regimes",
+    "conditional/downside-vol targeting (lower turnover)",
+    "defensive cross-asset dual-momentum SPY/QQQ vs TLT/GLD/cash",
+    "wire FRED T-bill yield for the cash leg"
+  ],
+  "infra_changes": [
+    "StrategySpec.gross_leverage=None to support variable-exposure market-timing strategies; runner threads it through the validation battery"
+  ],
+  "artifacts": [
+    "cycle_2_report.md",
+    "eval_voltarget_spy.json"
+  ]
+}

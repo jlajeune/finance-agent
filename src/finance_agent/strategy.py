@@ -52,6 +52,11 @@ class StrategySpec:
     params: dict = field(default_factory=dict)
     author: str = "quant-researcher"
     references: list[str] = field(default_factory=list)  # papers/data informing it
+    # Gross exposure each period is normalized to this. Use 1.0 for a fully-invested
+    # long/short or long-only book; use None to leave weights untouched (required for
+    # market-timing / vol-targeting strategies whose whole point is VARIABLE exposure
+    # between cash and the asset).
+    gross_leverage: float | None = 1.0
 
     def to_dict(self) -> dict:
         return asdict(self)
