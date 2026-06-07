@@ -1,0 +1,10 @@
+# Core harness dependencies — intentionally minimal and transparent.
+pandas>=2.0
+numpy>=1.24
+yfinance>=0.2.40
+pyarrow>=14.0      # parquet cache
+scipy>=1.10        # stats for validation (t-tests, deflated Sharpe)
+
+# Optional / nice-to-have (uncomment if you want them):
+# matplotlib>=3.7  # plots in reports
+# statsmodels>=0.14

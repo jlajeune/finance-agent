@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Cached market data can be large and is reproducible — don't commit it.
+data/cache/
+*.parquet
+
+# Generated reports are artifacts; keep the directory but ignore contents by default.
+reports/*.md
+!reports/.gitkeep
