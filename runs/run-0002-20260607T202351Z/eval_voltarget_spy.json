@@ -1,0 +1,98 @@
+{
+  "id": "voltarget_spy",
+  "thesis": "Volatility-targeted SPY exposure: hold the equity index but scale the weight inversely to its trailing 60-day realized volatility to target ~11% annual vol, capped at 1x (SPY-vs-cash, deleveraging into vol spikes). Exploits volatility persistence + the leverage effect to cut left-tail drawdowns and raise the Sharpe vs buy-and-hold. Weekly rebalance with a no-trade band keeps turnover and costs low. Time-series and long-only, so it is immune to the survivorship bias that sank cross-sectional cycle-1 ideas.",
+  "taxonomy": [
+    "volatility_timing",
+    "time_series_momentum"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "asset": "SPY",
+    "vol_window": 60,
+    "target_vol": 0.11,
+    "max_leverage": 1.0,
+    "rebalance": 5,
+    "band": 0.05
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.09639793694986687,
+    "ann_vol": 0.11523507605163162,
+    "sharpe": 0.8564960969706628,
+    "sortino": 0.788020909140661,
+    "max_drawdown": -0.19886067115306716,
+    "calmar": 0.4847511395336054,
+    "hit_rate": 0.5497458242556281,
+    "t_stat": 3.4677894046177946,
+    "n_obs": 4131,
+    "avg_turnover": 0.004182814399743805,
+    "gross_sharpe": 0.8610652603947218,
+    "cost_drag_ann": 0.0005777459299354248
+  },
+  "oos": {
+    "split_at": "2019-11-06",
+    "in_sample": {
+      "ann_return": 0.09327711421738161,
+      "ann_vol": 0.10971905737035939,
+      "sharpe": 0.8679448346540369,
+      "sortino": 0.7904291610607123,
+      "max_drawdown": -0.1428278998742296,
+      "calmar": 0.653073484238856,
+      "hit_rate": 0.5460048426150121,
+      "t_stat": 2.7217141021837317,
+      "n_obs": 2478
+    },
+    "out_of_sample": {
+      "ann_return": 0.10109303441039952,
+      "ann_vol": 0.12307521158043169,
+      "sharpe": 0.844180561658331,
+      "sortino": 0.7871134088499157,
+      "max_drawdown": -0.19886067115306738,
+      "calmar": 0.5083611245211277,
+      "hit_rate": 0.5553539019963702,
+      "t_stat": 2.162078729117118,
+      "n_obs": 1653
+    },
+    "sharpe_decay": 0.023764272995705937
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.9157793814482377,
+      0.9589029942032039,
+      0.619978815180339,
+      0.9598419061363201
+    ],
+    "mean_sharpe": 0.8636257742420251,
+    "std_sharpe": 0.1637265322469738,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.8610652603947218,
+      "5": 0.8564960969706628,
+      "10": 0.8519247062235497,
+      "20": 0.842775383091817,
+      "40": 0.8244515553674177
+    },
+    "ann_return": {
+      "0": 0.0969756828798023,
+      "5": 0.09639793694986687,
+      "10": 0.09582045694205954,
+      "20": 0.09466629425862005,
+      "40": 0.09236115518311716
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.05395418265432941,
+    "n_trials": 1,
+    "n_obs": 4131,
+    "deflated_sharpe_prob": 1.0,
+    "passes": true
+  },
+  "latest_weights": {
+    "SPY": 0.7623
+  }
+}
