@@ -1,0 +1,101 @@
+{
+  "id": "ivrv_monthly_timer",
+  "thesis": "Predict the sign of next month's SPY return from the variance risk premium (implied minus realized vol) at 1/3/6-month horizons using an expanding-window walk-forward L2 logistic regression, then trade long/flat SPY: go long when predicted P(up) beats the expanding base rate, else hold cash. A large positive VRP is compensation for bearing volatility risk and historically precedes positive equity returns (Bollerslev-Tauchen-Zhou 2009). Refit monthly on data <= t with per-date standardization and a 60-month minimum training window; no full-sample fitting. A univariate VRP baseline is reported as an overfit guard.",
+  "taxonomy": [
+    "volatility_timing",
+    "statistical_ml"
+  ],
+  "feature_families": [
+    "price",
+    "implied_volatility"
+  ],
+  "universe": "default",
+  "params": {
+    "asset": "SPY",
+    "min_train_months": 60,
+    "l2": 1.0,
+    "rv_windows": [
+      21,
+      63,
+      126
+    ]
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.03897757781562894,
+    "ann_vol": 0.10921428695646257,
+    "sharpe": 0.40510516006597325,
+    "sortino": 0.23690565781458076,
+    "max_drawdown": -0.3371727136343,
+    "calmar": 0.11560122228011696,
+    "hit_rate": 0.2202226345083488,
+    "t_stat": 1.8735353305115432,
+    "n_obs": 5390,
+    "avg_turnover": 0.015769944341372914,
+    "gross_sharpe": 0.423251875960286,
+    "cost_drag_ann": 0.002064898090741396
+  },
+  "oos": {
+    "split_at": "2017-11-06",
+    "in_sample": {
+      "ann_return": 0.0399062057875994,
+      "ann_vol": 0.08531280901196155,
+      "sharpe": 0.5014815388515224,
+      "sortino": 0.2722287873712436,
+      "max_drawdown": -0.1706561536085447,
+      "calmar": 0.2338398290584777,
+      "hit_rate": 0.17965367965367965,
+      "t_stat": 1.7964895167745252,
+      "n_obs": 3234
+    },
+    "out_of_sample": {
+      "ann_return": 0.037586190483849036,
+      "ann_vol": 0.137508436291205,
+      "sharpe": 0.3376809534692194,
+      "sortino": 0.2198268984156064,
+      "max_drawdown": -0.3371727136343,
+      "calmar": 0.11147459140070062,
+      "hit_rate": 0.2810760667903525,
+      "t_stat": 0.9877127803310055,
+      "n_obs": 2156
+    },
+    "sharpe_decay": 0.16380058538230297
+  },
+  "subsample": {
+    "sub_sharpes": [
+      -0.16299818609383807,
+      0.7474638955958637,
+      0.3126535468495429,
+      0.47160455358752473
+    ],
+    "mean_sharpe": 0.3421809524847733,
+    "std_sharpe": 0.3816990796590803,
+    "fraction_positive": 0.75
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.423251875960286,
+      "5": 0.40510516006597325,
+      "10": 0.3869226872671829,
+      "20": 0.3504683593911528,
+      "40": 0.2773283580082797
+    },
+    "ann_return": {
+      "0": 0.041042475906370335,
+      "5": 0.03897757781562894,
+      "10": 0.036915746277207395,
+      "20": 0.03280127076179351,
+      "40": 0.024608985390402793
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.025519226389609035,
+    "n_trials": 5,
+    "n_obs": 5390,
+    "deflated_sharpe_prob": 0.7477946505833482,
+    "passes": false
+  },
+  "latest_weights": {
+    "SPY": 1.0
+  }
+}

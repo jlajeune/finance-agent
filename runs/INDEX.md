@@ -8,3 +8,4 @@ report, and per-strategy evaluation JSON.
 | `run-0001-20260607T200935Z` | 1 | 2 | 0 | 2 diverse look-ahead-clean strategies generated in parallel; both REJECTED. Reversal has a real but uneconomic gross edge; low-vol fails due to survivorship-bia |
 | `run-0002-20260607T202351Z` | 2 | 1 | 1 | Real web-research cycle. Top lit-scout seed (vol-targeting) implemented and PASSED: same Sharpe as SPY but -14pp drawdown (-24pp and +0.09 Sharpe edge with cris |
 | `run-0003-20260608T031721Z` | 3 | 3 | 0 | Cycle 3: 3 diverse candidates (cross_asset / trend_following / seasonality_calendar), all clean & robust but each loses to its own honest passive benchmark -> 0 |
+| `run-0004-20260608T181906Z` | 4 | 1 | 0 | User-directed test: can VIX/realized-vol variance risk premium predict next-month SPY direction? Answer: NO. Robust negative on a 194-month OOS sample (VIX-only |
