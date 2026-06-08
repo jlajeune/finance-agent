@@ -77,8 +77,12 @@ def _append_index(manifest: dict) -> None:
             "|---|---|---|---|---|\n"
         )
     strats = manifest.get("strategies", [])
-    survived = sum(1 for s in strats
-                   if str(s.get("verdict", "")).upper().startswith(("PASS", "REVISE")))
+    # Prefer the manifest's explicit survivor count (authoritative). Fall back to counting
+    # only verdicts that actually clear the bar — REVISE/REJECT are NOT survivors.
+    survived = manifest.get("survivors")
+    if survived is None:
+        survived = sum(1 for s in strats
+                       if str(s.get("verdict", "")).upper().startswith(("PASS", "VALID")))
     summary = str(manifest.get("summary", "")).replace("\n", " ").replace("|", "/")[:160]
     row = f"| `{manifest['run_id']}` | {manifest.get('cycle','')} | {len(strats)} | {survived} | {summary} |\n"
     with INDEX.open("a") as f:
