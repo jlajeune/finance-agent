@@ -104,8 +104,8 @@
     "per_obs_sharpe": 0.05207958949937974,
     "n_trials": 3,
     "n_obs": 4131,
-    "deflated_sharpe_prob": 0.0,
-    "passes": false
+    "deflated_sharpe_prob": 0.9929572235158853,
+    "passes": true
   },
   "latest_weights": {
     "QQQ": 0.5,

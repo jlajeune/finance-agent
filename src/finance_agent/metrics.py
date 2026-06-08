@@ -90,17 +90,26 @@ def deflated_sharpe(observed_sharpe: float, n_trials: int, n_obs: int,
 
     if n_trials < 1 or n_obs < 2:
         return float("nan")
-    # Expected maximum Sharpe from N independent trials of zero-skill strategies.
-    e_max = (
-        (1 - np.euler_gamma) * norm.ppf(1 - 1.0 / n_trials)
-        + np.euler_gamma * norm.ppf(1 - 1.0 / (n_trials * np.e))
-    )
-    # Variance of the Sharpe estimator (accounting for non-normal returns).
-    sr = observed_sharpe
+    sr = observed_sharpe  # per-observation (non-annualized) Sharpe
+    # Expected maximum of N independent zero-skill Sharpe ESTIMATES, expressed in units
+    # of the estimator's standard deviation (a z-score, ~0.85 for N=3). For a single
+    # trial there is no selection, so the expected max is 0.
+    if n_trials == 1:
+        e_max = 0.0
+    else:
+        e_max = (
+            (1 - np.euler_gamma) * norm.ppf(1 - 1.0 / n_trials)
+            + np.euler_gamma * norm.ppf(1 - 1.0 / (n_trials * np.e))
+        )
+    # Convert that z-score into a per-observation Sharpe threshold by multiplying by the
+    # std of the Sharpe estimator under the null (~1/sqrt(n-1)). This is the fix for the
+    # original scale bug, where e_max (a z-score) was compared directly to a per-obs
+    # Sharpe (~0.05), making the test fire false-negative for every daily strategy.
+    sr_star = e_max * np.sqrt(1.0 / (n_obs - 1))
     denom = np.sqrt(1 - skew * sr + (kurt - 1) / 4 * sr ** 2)
     if denom == 0 or np.isnan(denom):
         return float("nan")
-    z = (sr - e_max) * np.sqrt(n_obs - 1) / denom
+    z = (sr - sr_star) * np.sqrt(n_obs - 1) / denom
     return float(norm.cdf(z))
 
 
