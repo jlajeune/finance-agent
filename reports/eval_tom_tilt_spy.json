@@ -1,0 +1,104 @@
+{
+  "id": "tom_tilt_spy",
+  "thesis": "Turn-of-month seasonal tilt on SPY: hold SPY at all times but apply a small calendar-locked overweight during the turn-of-month window (last trading day of the prior month through trading day +3, weighted toward days 0/+1), funded by a small underweight parked in a defensive TLT/GLD/HYG inverse-vol blend the rest of the month. Harvests the institutional-flow TOM anomaly (payroll/401k inflows, dividend reinvestment, month-end rebalancing) as a mild oscillation rather than an in/out switch, so it keeps the equity risk premium and only rebalances ~twice a month. Window is fixed from theory, not fit; fully-invested rotation with no cash drag.",
+  "taxonomy": [
+    "seasonality_calendar"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "core": "SPY",
+    "defensive": [
+      "TLT",
+      "GLD",
+      "HYG"
+    ],
+    "pre_days": 1,
+    "post_days": 3,
+    "tilt": 0.12,
+    "vol_window": 90
+  },
+  "gross_leverage": 1.0,
+  "headline": {
+    "ann_return": 0.1313299516613624,
+    "ann_vol": 0.15745479551702177,
+    "sharpe": 0.8627662574831777,
+    "sortino": 0.8129986640241442,
+    "max_drawdown": -0.30996347830476223,
+    "calmar": 0.4236949216715016,
+    "hit_rate": 0.5528927620430888,
+    "t_stat": 3.493176089119286,
+    "n_obs": 4131,
+    "avg_turnover": 0.023832962103207525,
+    "gross_sharpe": 0.8817930232588295,
+    "cost_drag_ann": 0.0033994783740116663
+  },
+  "oos": {
+    "split_at": "2019-11-06",
+    "in_sample": {
+      "ann_return": 0.12185467480385759,
+      "ann_vol": 0.13547475099796988,
+      "sharpe": 0.9167983363925677,
+      "sortino": 0.8589130815207742,
+      "max_drawdown": -0.17737839312182357,
+      "calmar": 0.686975863628259,
+      "hit_rate": 0.5544794188861986,
+      "t_stat": 2.8749096271917427,
+      "n_obs": 2478
+    },
+    "out_of_sample": {
+      "ann_return": 0.14568438821589114,
+      "ann_vol": 0.18563138851775016,
+      "sharpe": 0.8258388164375742,
+      "sortino": 0.7830675212565257,
+      "max_drawdown": -0.30996347830476234,
+      "calmar": 0.4700050115989836,
+      "hit_rate": 0.5505142165759226,
+      "t_stat": 2.11510264485526,
+      "n_obs": 1653
+    },
+    "sharpe_decay": 0.09095951995499352
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.9219406837515439,
+      1.0067155335585805,
+      0.7559181281199037,
+      0.8846059055546914
+    ],
+    "mean_sharpe": 0.8922950627461799,
+    "std_sharpe": 0.10428917876446582,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.8817930232588295,
+      "5": 0.8627662574831777,
+      "10": 0.8437264310498412,
+      "20": 0.8056105969154332,
+      "40": 0.7292552898584652
+    },
+    "ann_return": {
+      "0": 0.13472943003537408,
+      "5": 0.1313299516613624,
+      "10": 0.12794024956458672,
+      "20": 0.12119006646014152,
+      "40": 0.10780583438278768
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.05434916563996209,
+    "n_trials": 3,
+    "n_obs": 4131,
+    "deflated_sharpe_prob": 0.0,
+    "passes": false
+  },
+  "latest_weights": {
+    "SPY": 0.88,
+    "HYG": 0.0733,
+    "TLT": 0.0368,
+    "GLD": 0.01
+  }
+}

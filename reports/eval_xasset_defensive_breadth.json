@@ -1,0 +1,114 @@
+{
+  "id": "xasset_defensive_breadth",
+  "thesis": "Cross-asset defensive asset allocation (DAA): each month score every asset with a 13612W average-momentum (front-weighted 1/3/6/12-month returns). A canary breadth gate (SPY, HYG, IWM) sets the cash fraction = share of canaries with non-positive momentum, de-risking before the held asset confirms a downtrend. The risk-on book holds the top-2 offensive equity ETFs (SPY/QQQ/IWM/XLK); the defensive book holds the top defensive asset (TLT/GLD/HYG) only if its own momentum is positive, else cash \u2014 avoiding the 2022 forced-long-bonds trap. Net exposure floats in [0,1]. Crucially, an ensemble across staggered month-end rebalance offsets (0/5/10/15) is averaged to neutralize rebalance timing luck and smooth turnover by ~4x.",
+  "taxonomy": [
+    "cross_asset"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "lookbacks": [
+      21,
+      63,
+      126,
+      252
+    ],
+    "weights_13612w": [
+      12.0,
+      4.0,
+      2.0,
+      1.0
+    ],
+    "rebalance": 21,
+    "offsets": [
+      0,
+      5,
+      10,
+      15
+    ],
+    "n_offensive": 2,
+    "n_defensive": 1,
+    "band": 0.05
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.11428192233142265,
+    "ann_vol": 0.1433846699144371,
+    "sharpe": 0.8267378531861378,
+    "sortino": 0.7375381046947312,
+    "max_drawdown": -0.25388854165275787,
+    "calmar": 0.4501263490958386,
+    "hit_rate": 0.5163398692810458,
+    "t_stat": 3.3473039489794094,
+    "n_obs": 4131,
+    "avg_turnover": 0.04230210602759622,
+    "gross_sharpe": 0.8640535915039979,
+    "cost_drag_ann": 0.005956526174678345
+  },
+  "oos": {
+    "split_at": "2019-11-06",
+    "in_sample": {
+      "ann_return": 0.07210555145762387,
+      "ann_vol": 0.11961509391159213,
+      "sharpe": 0.6421026811531619,
+      "sortino": 0.5590147390722897,
+      "max_drawdown": -0.25388854165275787,
+      "calmar": 0.2840047486516437,
+      "hit_rate": 0.4947538337368846,
+      "t_stat": 2.013514975339587,
+      "n_obs": 2478
+    },
+    "out_of_sample": {
+      "ann_return": 0.18063645275263296,
+      "ann_vol": 0.172971100706424,
+      "sharpe": 1.0470431342317623,
+      "sortino": 0.959176617788214,
+      "max_drawdown": -0.22583924081269346,
+      "calmar": 0.799845288633649,
+      "hit_rate": 0.5486993345432547,
+      "t_stat": 2.681641572679147,
+      "n_obs": 1653
+    },
+    "sharpe_decay": -0.4049404530786004
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.3360571187678849,
+      0.9995903124943168,
+      1.0006512443404103,
+      0.9541581956799525
+    ],
+    "mean_sharpe": 0.8226142178206413,
+    "std_sharpe": 0.3250945245348556,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.8640535915039979,
+      "5": 0.8267378531861378,
+      "10": 0.7894025184429162,
+      "20": 0.7146912856766626,
+      "40": 0.5652339552654744
+    },
+    "ann_return": {
+      "0": 0.12023844850610099,
+      "5": 0.11428192233142265,
+      "10": 0.10835602016341239,
+      "20": 0.0965954801910649,
+      "40": 0.07343524474367413
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.05207958949937974,
+    "n_trials": 3,
+    "n_obs": 4131,
+    "deflated_sharpe_prob": 0.0,
+    "passes": false
+  },
+  "latest_weights": {
+    "QQQ": 0.5,
+    "XLK": 0.5
+  }
+}
