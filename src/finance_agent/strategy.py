@@ -37,6 +37,7 @@ TAXONOMY = [
     "statistical_ml",
     "microstructure",
     "event_driven",
+    "market_state_structural",
 ]
 
 
