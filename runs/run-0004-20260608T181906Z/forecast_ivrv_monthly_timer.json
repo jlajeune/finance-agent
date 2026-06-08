@@ -1,0 +1,66 @@
+{
+  "strategy_id": "ivrv_monthly_timer",
+  "task": "predict sign of next-month SPY return; trade long/flat SPY",
+  "oos_window": {
+    "start": "2010-04-30",
+    "end": "2026-05-29",
+    "n_months": 194
+  },
+  "params": {
+    "min_train_months": 60,
+    "l2": 1.0,
+    "rv_windows": [
+      21,
+      63,
+      126
+    ]
+  },
+  "full_logistic": {
+    "n_predictions": 194,
+    "base_rate_up": 0.6804123711340206,
+    "accuracy": 0.5103092783505154,
+    "auc": 0.4738514173998045,
+    "log_loss": 0.6458285158738883,
+    "frac_long": 0.5309278350515464
+  },
+  "univariate_vrp_baseline": {
+    "n_predictions": 194,
+    "base_rate_up": 0.6804123711340206,
+    "accuracy": 0.5154639175257731,
+    "auc": 0.5199169110459433,
+    "log_loss": 13.388230033166819,
+    "frac_long": 0.4948453608247423
+  },
+  "always_long_benchmark": {
+    "n_predictions": 194,
+    "base_rate_up": 0.6804123711340206,
+    "accuracy": 0.6804123711340206,
+    "auc": 0.5,
+    "log_loss": NaN,
+    "frac_long": 1.0
+  },
+  "subperiods": {
+    "full_model_pre_2015": {
+      "n_predictions": 57,
+      "base_rate_up": 0.6491228070175439,
+      "accuracy": 0.49122807017543857,
+      "auc": 0.47702702702702704,
+      "log_loss": 0.6575086206465085,
+      "frac_long": 0.5614035087719298
+    },
+    "full_model_post_2015": {
+      "n_predictions": 137,
+      "base_rate_up": 0.6934306569343066,
+      "accuracy": 0.5182481751824818,
+      "auc": 0.45338345864661656,
+      "log_loss": 0.6409689102385645,
+      "frac_long": 0.5182481751824818
+    }
+  },
+  "interpretation": {
+    "beats_base_rate_accuracy": false,
+    "beats_random_auc": false,
+    "logistic_beats_baseline_accuracy": false,
+    "logistic_beats_baseline_auc": false
+  }
+}

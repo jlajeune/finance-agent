@@ -1,0 +1,40 @@
+{
+  "run_id": "run-0004-20260608T181906Z",
+  "created_utc": "2026-06-08T18:19:06Z",
+  "cycle": 4,
+  "mode": "focused user-directed single-hypothesis (1 quant-researcher)",
+  "question": "predict sign of next-month SPY return from implied (VIX) + realized vol at 1/3/6m",
+  "data_source": "yfinance; implied vol = VIX only; realized vol = SPY 21/63/126d",
+  "oos_window": "2010-04..2026-05 (194 months); base rate up=0.68",
+  "idea_provenance": "user-directed; VRP literature (Bollerslev-Tauchen-Zhou 2009)",
+  "strategies": [
+    {
+      "id": "ivrv_monthly_timer",
+      "family": "volatility_timing/statistical_ml",
+      "oos_accuracy": 0.51,
+      "oos_auc": 0.474,
+      "baseline_acc": 0.515,
+      "always_long_acc": 0.68,
+      "net_sharpe": 0.41,
+      "spy_sharpe": 0.64,
+      "verdict": "REJECT",
+      "reason": "monthly directional sign not predictable from VRP; both model and baseline below always-long accuracy (0.68) and AUC~0.5; trading Sharpe 0.41 < buy-and-hold 0.64. VRP predicts equity-premium magnitude at quarterly horizon, not monthly sign."
+    }
+  ],
+  "survivors": 0,
+  "summary": "User-directed test: can VIX/realized-vol variance risk premium predict next-month SPY direction? Answer: NO. Robust negative on a 194-month OOS sample (VIX-only). Always-long (68% up) is unbeaten; trading Sharpe 0.41 < SPY 0.64.",
+  "infra_changes": [
+    "new implied-volatility (VIX) data integration via data.get_prices inside generate_weights",
+    "expanding-window walk-forward logistic ML scaffold (look-ahead-safe), reusable"
+  ],
+  "next_angles": [
+    "predict magnitude/scale exposure rather than sign",
+    "test quarterly horizon where VRP predictability is documented"
+  ],
+  "standing_recommendation": "voltarget_spy (~76% SPY / 24% cash) remains the only validated strategy",
+  "artifacts": [
+    "cycle_4_report.md",
+    "eval_ivrv_monthly_timer.json",
+    "forecast_ivrv_monthly_timer.json"
+  ]
+}
