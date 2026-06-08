@@ -53,6 +53,18 @@ def test_backtest_costs_reduce_returns():
     assert pricey.returns.sum() < free.returns.sum()
 
 
+def test_deflated_sharpe_scaling():
+    """Regression for the per-obs-vs-z-score scale bug. Over a long daily sample, a
+    genuine ~0.8-annualized-Sharpe strategy (per-obs ~0.05) must score high, a zero-skill
+    strategy must be penalized, more trials must lower the score, and n_trials=1 must NOT
+    auto-pass a zero-skill result."""
+    n = 4131
+    assert metrics.deflated_sharpe(0.05, 3, n) > 0.9        # real edge passes
+    assert metrics.deflated_sharpe(0.0, 3, n) < 0.5         # zero skill penalized
+    assert metrics.deflated_sharpe(0.05, 50, n) < metrics.deflated_sharpe(0.05, 3, n)
+    assert metrics.deflated_sharpe(0.0, 1, n) <= 0.5        # single trial not a free pass
+
+
 def test_ledger_roundtrip(tmp_path):
     path = tmp_path / "led.jsonl"
     ledger.record({"id": "x1", "thesis": "trend following on bonds", "taxonomy": ["trend_following"],

@@ -12,3 +12,7 @@ data/cache/
 # Generated reports are artifacts; keep the directory but ignore contents by default.
 reports/*.md
 !reports/.gitkeep
+
+# scratch/ is throwaway prototyping space for agents — keep the dir, ignore contents.
+scratch/*
+!scratch/.gitkeep

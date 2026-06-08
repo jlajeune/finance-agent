@@ -1,0 +1,129 @@
+{
+  "id": "tsmom_barbell_etf",
+  "thesis": "Barbell cross-asset time-series momentum on a diversified 6-ETF basket (SPY, QQQ, IWM, TLT, GLD, HYG). Per asset, trend is a BARBELL of a short (~20d) and a long (~250-500d) fitted linear-trend slope sign \u2014 deliberately EXCLUDING the medium (~125d) horizon, which 2025 research shows is spanned by the fast+slow pair. Signals are EMA-smoothed with hysteresis and mapped LONG-FLAT ({0,+1}); active longs are inverse-vol (risk-parity) weighted with gross capped <=1, so net exposure is variable (cash when trend-flat). A timing-luck guard ensembles over several lookback pairs and staggered monthly rebalance offsets, averaging weights for robustness and low turnover. Exploits slow information diffusion / under-reaction; the Sharpe edge comes from cross-asset trend diversification.",
+  "taxonomy": [
+    "trend_following",
+    "time_series_momentum"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "basket": [
+      "SPY",
+      "QQQ",
+      "IWM",
+      "TLT",
+      "GLD",
+      "HYG"
+    ],
+    "lookback_pairs": [
+      [
+        15,
+        250
+      ],
+      [
+        20,
+        350
+      ],
+      [
+        25,
+        500
+      ]
+    ],
+    "rebal_offsets": [
+      0,
+      7,
+      14
+    ],
+    "rebalance": 21,
+    "ema_span": 10,
+    "vol_window": 60,
+    "hysteresis": 0.15,
+    "gross_cap": 1.0
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.0689168877713271,
+    "ann_vol": 0.08807428537604953,
+    "sharpe": 0.8009180434914537,
+    "sortino": 0.7229945621840291,
+    "max_drawdown": -0.24307636702571533,
+    "calmar": 0.2835194906629335,
+    "hit_rate": 0.5090777051561365,
+    "t_stat": 3.2427644621035694,
+    "n_obs": 4131,
+    "avg_turnover": 0.006903176956080913,
+    "gross_sharpe": 0.8108277191440006,
+    "cost_drag_ann": 0.0009302682069609602
+  },
+  "oos": {
+    "split_at": "2019-11-06",
+    "in_sample": {
+      "ann_return": 0.06870237718920036,
+      "ann_vol": 0.07301247260446778,
+      "sharpe": 0.946692036144171,
+      "sortino": 0.8551955207378026,
+      "max_drawdown": -0.1284900944891545,
+      "calmar": 0.5346900666727997,
+      "hit_rate": 0.4943502824858757,
+      "t_stat": 2.968650727929805,
+      "n_obs": 2478
+    },
+    "out_of_sample": {
+      "ann_return": 0.06923853964468396,
+      "ann_vol": 0.10676921149639253,
+      "sharpe": 0.6806169281939322,
+      "sortino": 0.623156831923728,
+      "max_drawdown": -0.243076367025715,
+      "calmar": 0.28484274506768165,
+      "hit_rate": 0.5311554748941318,
+      "t_stat": 1.7431666280426863,
+      "n_obs": 1653
+    },
+    "sharpe_decay": 0.2660751079502388
+  },
+  "subsample": {
+    "sub_sharpes": [
+      1.0142835738621623,
+      0.8696785200906646,
+      0.6488567524317496,
+      0.8170640253569991
+    ],
+    "mean_sharpe": 0.8374707179353938,
+    "std_sharpe": 0.15087720131026233,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.8108277191440006,
+      "5": 0.8009180434914537,
+      "10": 0.7910054385105583,
+      "20": 0.7711720095030594,
+      "40": 0.73147626164256
+    },
+    "ann_return": {
+      "0": 0.06984715597828806,
+      "5": 0.0689168877713271,
+      "10": 0.0679873858225597,
+      "20": 0.06613067830790609,
+      "40": 0.06242643209297616
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.05045309437197144,
+    "n_trials": 3,
+    "n_obs": 4131,
+    "deflated_sharpe_prob": 0.9905044722623704,
+    "passes": true
+  },
+  "latest_weights": {
+    "HYG": 0.3964,
+    "TLT": 0.1597,
+    "SPY": 0.1495,
+    "QQQ": 0.1141,
+    "IWM": 0.1043,
+    "GLD": 0.0761
+  }
+}

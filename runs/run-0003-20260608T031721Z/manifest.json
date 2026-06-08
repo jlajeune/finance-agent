@@ -1,0 +1,50 @@
+{
+  "run_id": "run-0003-20260608T031721Z",
+  "created_utc": "2026-06-08T03:17:21Z",
+  "cycle": 3,
+  "mode": "full cycle, all skills, 3 candidates",
+  "idea_provenance": "live web research (lit-scout)",
+  "summary": "Cycle 3: 3 diverse candidates (cross_asset / trend_following / seasonality_calendar), all clean & robust but each loses to its own honest passive benchmark -> 0 survivors; real wins were a deflated-Sharpe harness bug fix and strong cycle-4 leads (inverse-vol RP basket, vol-targeted xasset).",
+  "survivors": 0,
+  "strategies": [
+    {
+      "id": "xasset_defensive_breadth",
+      "family": "cross_asset",
+      "net_sharpe": 0.83,
+      "verdict": "REVISE (recorded rejected)",
+      "reason": "Net Sharpe 0.83 (maxDD -25.4%) loses to static 60/40 (1.00) and plain SPY (0.86) on its own falsification bar; canary/breadth gate adds only ~0.01 Sharpe; book drifted to 100% tech long. 60/40 dominance is largely a 2010-21 bond-bull artifact. Promising fix: vol-target to ~10% -> Sharpe 0.84, maxDD -25%->-17.8% (beats 60/40 on DD). Top cycle-4 revision."
+    },
+    {
+      "id": "tsmom_barbell_etf",
+      "family": "trend_following",
+      "net_sharpe": 0.8,
+      "verdict": "REJECT",
+      "reason": "Net Sharpe 0.80 (maxDD -24.3%) loses to every passive comparator, incl the IDENTICAL inverse-vol RP basket with trend removed (1.02, maxDD -21.6%): trend timing strictly destroys value. Crisis-convexity falsified (timing detracted 11/17 yrs; 2022 cost 2.9pp, still -19.6%). HYG ~40% weight is dead ballast (cap-to-20% -> 0.91). Clean, lowest turnover (0.007), flat plateau. SERENDIPITOUS LEAD: trend-stripped inverse-vol RP 6-ETF basket ~Sharpe 1.02, maxDD -21.3%, turnover 0.004 -> top cycle-4 candidate."
+    },
+    {
+      "id": "tom_tilt_spy",
+      "family": "seasonality_calendar",
+      "net_sharpe": 0.86,
+      "verdict": "REJECT",
+      "reason": "Loses to buy-and-hold SPY net 10bps in EVERY sub-period (post-2015 0.79 vs 0.82); break-even ~6-7bps vs ~100x SPY turnover. Required post-2015 persistence test FAILS (in/out premium +2.6bps/day, Welch t=0.48, p~0.63); amplitude sweep monotone to tilt=0. -31% vs -34% DD edge is 100% static defensive parking, not seasonal timing. TOM decayed in ETF era."
+    }
+  ],
+  "infra_changes": [
+    "Fixed metrics.deflated_sharpe scale bug: was comparing a per-obs Sharpe (~0.05) to a z-score threshold (~0.85), false-failing every daily strategy while n_trials=1 auto-passed. Fix converts e_max to a per-obs threshold via 1/sqrt(n-1) and treats n_trials=1 as no selection. Post-fix all 3 PASS DSR (~0.99) at n_trials=3 -> data-snooping was NOT the failure mode; benchmark underperformance is. Meta-lesson: honest n_trials should be >=20 (all decision points), at which DSR becomes borderline."
+  ],
+  "standing_recommendation": "voltarget_spy (cycle 2, validated): vol-targeted SPY, ~76% SPY / 24% cash at latest bar. No cycle-3 strategy validated.",
+  "next_cycle_seeds": [
+    "Inverse-vol risk-parity 6-ETF basket as its own strategy (highest conviction; ~Sharpe 1.02, maxDD -21.3%, turnover 0.004, dominates SPY & 60/40).",
+    "Vol-targeted xasset_defensive_breadth REVISE (~10% vol-target + duration sizing; prototype maxDD -17.8%, beats 60/40 on DD).",
+    "Deconcentrated / regime-gated trend (force per-name caps <=20%; gate timing on regime so it only acts when historically helpful).",
+    "Pass honest n_trials>=20 (all decision points) to every eval; expect borderline DSR.",
+    "Move toward a point-in-time / de-survivorshipped universe for cross-sectional ideas."
+  ],
+  "disclaimer": "Research artifact only. Not investment advice. Model outputs on a survivorship/selection-biased universe. Past performance does not predict future results.",
+  "artifacts": [
+    "cycle_3_report.md",
+    "eval_xasset_defensive_breadth.json",
+    "eval_tsmom_barbell_etf.json",
+    "eval_tom_tilt_spy.json"
+  ]
+}
