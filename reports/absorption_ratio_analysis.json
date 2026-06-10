@@ -1,0 +1,121 @@
+{
+  "strategy_id": "absorption_ratio_timer",
+  "cost_bps": 5.0,
+  "eval_window": {
+    "signal_live_start": "2004-08-02",
+    "end": "2026-06-05"
+  },
+  "frozen_params": {
+    "asset": "SPY",
+    "corr_window": 500,
+    "k": 2,
+    "short_window": 15,
+    "long_window": 252,
+    "hi_thresh": 1.0,
+    "lo_thresh": 1.0,
+    "band": 0.1
+  },
+  "performance": {
+    "ar_timer": {
+      "sharpe": 0.44608794810436647,
+      "ann_return": 0.0412555490790103,
+      "ann_vol": 0.10239114692024796,
+      "max_drawdown": -0.23009994502502207,
+      "n_obs": 5497,
+      "avg_turnover": 0.0061851919228670185
+    },
+    "vix_timer": {
+      "sharpe": 0.5748673536648715,
+      "ann_return": 0.042801157090825104,
+      "ann_vol": 0.0782429761879955,
+      "max_drawdown": -0.24511733497245158,
+      "n_obs": 5497,
+      "avg_turnover": 0.013825723121702747
+    },
+    "buy_hold_spy": {
+      "sharpe": 0.6537066564088881,
+      "ann_return": 0.11109096740452684,
+      "ann_vol": 0.18832295635064042,
+      "max_drawdown": -0.5518941254193372,
+      "n_obs": 5497,
+      "avg_turnover": 0.0
+    },
+    "static_60_40": {
+      "sharpe": 0.8274441551344076,
+      "ann_return": 0.0890160242345055,
+      "ann_vol": 0.11043988894197475,
+      "max_drawdown": -0.2992278859284262,
+      "n_obs": 5497,
+      "avg_turnover": 0.0
+    }
+  },
+  "orthogonality": {
+    "dar_on_vix_change_and_level": {
+      "coef": [
+        -1.4135066115817962,
+        -0.050594224725847486,
+        0.0672006744788305
+      ],
+      "tstat": [
+        -32.4603061658856,
+        -5.363664308959761,
+        32.02842801493742
+      ],
+      "r2": 0.15430912315006073,
+      "n": 5643
+    },
+    "note": "R^2 = variance of dAR explained by contemporaneous VIX change+level"
+  },
+  "forward_predictive_content_fwd21d_spy": {
+    "univariate_dar": {
+      "coef": [
+        0.009912608087424836,
+        0.0019097352403314258
+      ],
+      "tstat": [
+        16.358749007575785,
+        4.53629172216728
+      ],
+      "r2": 0.003648197542530096,
+      "n": 5622
+    },
+    "univariate_vix_z": {
+      "coef": [
+        0.009907182507402489,
+        0.00256975845750238
+      ],
+      "tstat": [
+        16.34369658775439,
+        4.327958004207411
+      ],
+      "r2": 0.0033218856784890116,
+      "n": 5622
+    },
+    "partial_dar_controlling_vix_z": {
+      "coef": [
+        0.010075700522698617,
+        0.0016150806043550014,
+        0.0021242787531827907
+      ],
+      "tstat": [
+        16.595921888603836,
+        3.7660728927070726,
+        3.512691835475077
+      ],
+      "r2": 0.005831335300462315,
+      "n": 5622
+    },
+    "note": "OFFLINE evaluation only (uses future returns); NOT used by the strategy"
+  },
+  "verdict": {
+    "ar_beats_buyhold_sharpe": false,
+    "ar_beats_buyhold_maxdd": true,
+    "ar_beats_vix_sharpe": false,
+    "ar_beats_vix_maxdd": true,
+    "ar_beats_6040_sharpe": false,
+    "ar_beats_6040_maxdd": true,
+    "dar_orthogonal_to_vix_lowR2": false,
+    "dar_residual_predictive_tstat": 3.7660728927070726,
+    "passes_all_guards": false
+  }
+}

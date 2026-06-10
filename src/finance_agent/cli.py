@@ -44,6 +44,10 @@ def main(argv: list[str] | None = None) -> int:
     add.add_argument("--status", default="proposed",
                      choices=["proposed", "validated", "rejected", "shipped"])
     add.add_argument("--references", nargs="*", default=[])
+    add.add_argument("--prior-art", default="unknown",
+                     help="none_found | extends: X | reimplements: X (novelty bookkeeping)")
+    add.add_argument("--novel-combination", default="",
+                     help="one-line 'what x what' unique combination this idea expresses")
 
     nc = sub.add_parser("novelty", help="Check a proposed thesis for duplication")
     nc.add_argument("--thesis", required=True)
@@ -69,6 +73,7 @@ def main(argv: list[str] | None = None) -> int:
             "id": args.id, "thesis": args.thesis, "taxonomy": args.taxonomy,
             "feature_families": args.features, "cycle": args.cycle,
             "status": args.status, "references": args.references,
+            "prior_art": args.prior_art, "novel_combination": args.novel_combination,
         })
         print(f"recorded {args.id}")
     elif args.cmd == "novelty":

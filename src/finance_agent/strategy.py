@@ -37,6 +37,9 @@ TAXONOMY = [
     "statistical_ml",
     "microstructure",
     "event_driven",
+    "market_state_structural",
+    "time_irreversibility",
+    "path_geometry",
 ]
 
 
@@ -52,6 +55,14 @@ class StrategySpec:
     params: dict = field(default_factory=dict)
     author: str = "quant-researcher"
     references: list[str] = field(default_factory=list)  # papers/data informing it
+    # Novelty bookkeeping — so re-implementations of known methods can't masquerade as new.
+    # One of: "none_found" (a genuinely untried combination; say what you searched),
+    # "extends: <id/method>" (a novel twist on something we/others have), or
+    # "reimplements: <source>" (a known technique we are re-testing — allowed, but labelled).
+    prior_art: str = "unknown"
+    # The unique, not-previously-tried combination this idea expresses, in one line
+    # (e.g. "path-memory regime gate ON the validated vol-target sizing"). Empty = vanilla.
+    novel_combination: str = ""
     # Gross exposure each period is normalized to this. Use 1.0 for a fully-invested
     # long/short or long-only book; use None to leave weights untouched (required for
     # market-timing / vol-targeting strategies whose whole point is VARIABLE exposure

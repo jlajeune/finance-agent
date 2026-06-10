@@ -1,0 +1,31 @@
+{
+  "run_id": "run-0007-20260610T213557Z",
+  "created_utc": "2026-06-10T21:35:57Z",
+  "cycle": 7,
+  "mode": "build (Opus) of backlog item B1",
+  "idea_provenance": "cross-domain backlog B1 (movement ecology: Levy/Brownian foraging)",
+  "strategies": [
+    {
+      "id": "diffusion_regime_timer",
+      "family": "path_geometry/trend_following",
+      "net_sharpe": 0.55,
+      "max_drawdown": -0.198,
+      "verdict": "REJECT (standalone); SIGNAL VALIDATED",
+      "reason": "fails Sharpe-AND-drawdown vs all baselines as standalone long/flat timer (over-de-risks), but H_z passes honest beyond-VIX test: non-overlap monthly t=2.90, NW t=2.01, R^2-on-VIX 0.10 - first orthogonal cross-domain signal; re-home as gate/overlay"
+    }
+  ],
+  "survivors": 0,
+  "validated_signal": "H_z path-memory (beyond-VIX, t~2-2.9)",
+  "summary": "B1 path-memory (DFA-Hurst) timer: rejected as standalone (over-de-risks) but the signal is the FIRST cross-domain input to pass the honest beyond-VIX test (t~2-2.9, R^2-on-VIX 0.10). Re-home as overlay.",
+  "next_cycle_seeds": [
+    "re-home H_z as a vol-target overlay / 2-feature regime model",
+    "B2 cross-sectional diversity",
+    "P2 multifractal log-vol"
+  ],
+  "standing_recommendation": "voltarget_spy only validated strategy; H_z is a validated orthogonal signal for overlays",
+  "artifacts": [
+    "cycle_7_report.md",
+    "diffusion_regime_analysis.json",
+    "eval_diffusion_regime_timer.json"
+  ]
+}

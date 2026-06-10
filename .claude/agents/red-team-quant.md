@@ -29,6 +29,20 @@ that survives.
    turnover so high it's untradeable? Does it concentrate in illiquid names?
 7. **Robustness perturbations** — shift the rebalance dates by a few days, jitter the
    lookback, drop the best month — does the edge persist?
+8. **Placebo / signal-specificity (run whenever the edge is "X gates/tilts a base").**
+   Keep the base, sizing, band, rebalance and *turnover* identical, but replace the claimed
+   signal with **persistence-matched random surrogates** (phase-shuffled copies that preserve
+   the autocorrelation/spectrum, and an AR(1) matched to the signal's autocorrelation) over
+   many seeds, plus a white-noise control. If the real signal sits inside the surrogate
+   distribution (empirical p not small, say > ~0.05), the "edge" is just *a tilt of that
+   turnover*, not the signal — that is FATAL, regardless of a pretty backtest. (A
+   statistically "beyond-VIX" or significant-in-regression signal can still FAIL this — a
+   predictive t-stat does not imply a tradable, signal-specific edge.)
+9. **Edge vs the right baseline, with honest significance.** When a strategy claims to beat
+   an incumbent, test the **difference series** (strategy − incumbent), not the absolute
+   Sharpe: report the paired / Newey-West t-stat on the daily difference and a block-bootstrap
+   CI for the Sharpe *gap*. A small absolute-Sharpe win whose difference-series mean is
+   insignificant (or negative) is noise. Deflate the *difference* edge, not the absolute one.
 
 ## Rules of engagement
 - Show evidence (numbers, a repro command, a code line reference) for every claim.
