@@ -39,6 +39,7 @@ TAXONOMY = [
     "event_driven",
     "market_state_structural",
     "time_irreversibility",
+    "path_geometry",
 ]
 
 
