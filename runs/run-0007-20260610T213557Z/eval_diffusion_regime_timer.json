@@ -1,0 +1,104 @@
+{
+  "id": "diffusion_regime_timer",
+  "thesis": "Foraging diffusion-exponent regime timer: estimate the generalized Hurst exponent H of SPY daily log returns on a trailing 120-day window via DFA (detrended fluctuation analysis, not biased R/S), z-scored over the trailing 252 days. H>0.5 is a super-diffusive 'searching'/trending path; H<0.5 is a sub-diffusive choppy/mean-reverting path -- a path-memory axis VIX (an amplitude measure) cannot see. Gate a plain 50/200 trend rule with the regime: when H_z>+0.5 ride the trend (1.0 if MA50>MA200 else 0.0), when H_z<-0.5 de-risk to cash, else hold a neutral 0.5. Rides trends only while the path is genuinely persistent and steps aside in whipsaw regimes where naive trend-following bleeds. Long/flat SPY, weekly rebalance + no-trade band -> low turnover; all parameters pre-registered.",
+  "taxonomy": [
+    "path_geometry",
+    "trend_following"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "asset": "SPY",
+    "dfa_window": 120,
+    "z_window": 252,
+    "z_hi": 0.5,
+    "z_lo": -0.5,
+    "ma_fast": 50,
+    "ma_slow": 200,
+    "w_trend": 1.0,
+    "w_neutral": 0.5,
+    "w_choppy": 0.0,
+    "rebalance": 5,
+    "band": 0.1
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.04212763383097906,
+    "ann_vol": 0.08052261021338433,
+    "sharpe": 0.552818124067282,
+    "sortino": 0.42502765107363555,
+    "max_drawdown": -0.19761855024068187,
+    "calmar": 0.21317651495606732,
+    "hit_rate": 0.3280786350148368,
+    "t_stat": 2.5571543582312204,
+    "n_obs": 5392,
+    "avg_turnover": 0.04970326409495549,
+    "gross_sharpe": 0.6304328233792534,
+    "cost_drag_ann": 0.0065441242170245495
+  },
+  "oos": {
+    "split_at": "2017-11-07",
+    "in_sample": {
+      "ann_return": 0.027314694429680042,
+      "ann_vol": 0.08040275694016968,
+      "sharpe": 0.37544741053640435,
+      "sortino": 0.28047656472731336,
+      "max_drawdown": -0.19761855024068187,
+      "calmar": 0.13821928354606977,
+      "hit_rate": 0.32024729520865536,
+      "t_stat": 1.3451972953541989,
+      "n_obs": 3235
+    },
+    "out_of_sample": {
+      "ann_return": 0.06474494971722233,
+      "ann_vol": 0.08070175930612404,
+      "sharpe": 0.8178516169464173,
+      "sortino": 0.6563675774191061,
+      "max_drawdown": -0.1125882636782719,
+      "calmar": 0.5750594920109535,
+      "hit_rate": 0.339823829392675,
+      "t_stat": 2.3927609854636946,
+      "n_obs": 2157
+    },
+    "sharpe_decay": -0.44240420641001293
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.2749291914125401,
+      0.5387041953821242,
+      0.5656562901339414,
+      0.8658939177361251
+    ],
+    "mean_sharpe": 0.5612958986661827,
+    "std_sharpe": 0.24174038575549978,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.6304328233792534,
+      "5": 0.552818124067282,
+      "10": 0.475034597598653,
+      "20": 0.31921554535881486,
+      "40": 0.008347419908750037
+    },
+    "ann_return": {
+      "0": 0.04867175804800361,
+      "5": 0.04212763383097906,
+      "10": 0.035622358217261674,
+      "20": 0.02272747818337595,
+      "40": -0.0026056542981127695
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.034824268488839974,
+    "n_trials": 9,
+    "n_obs": 5392,
+    "deflated_sharpe_prob": 0.8475288869015505,
+    "passes": false
+  },
+  "latest_weights": {
+    "SPY": 1.0
+  }
+}

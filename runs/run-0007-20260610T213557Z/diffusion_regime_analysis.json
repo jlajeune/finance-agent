@@ -1,0 +1,171 @@
+{
+  "test1_must_beat": {
+    "eval_start": "2005-12-21",
+    "diffusion_timer": {
+      "sharpe": 0.5658353912506335,
+      "ann_return": 0.0441765835742336,
+      "ann_vol": 0.0824148822700847,
+      "max_drawdown": -0.1976177837719818,
+      "calmar": 0.2235455875024186,
+      "n_obs": 5147,
+      "avg_turnover": 0.05206916650476005
+    },
+    "buy_hold_spy": {
+      "sharpe": 0.6404476722926515,
+      "ann_return": 0.11051870079455606,
+      "ann_vol": 0.1927282928325323,
+      "max_drawdown": -0.5518946803492015,
+      "calmar": 0.20025324528337057,
+      "n_obs": 5147,
+      "avg_turnover": 0.0
+    },
+    "static_60_40": {
+      "sharpe": 0.7992729062339716,
+      "ann_return": 0.08727564206421823,
+      "ann_vol": 0.11263681058226523,
+      "max_drawdown": -0.29922775943498103,
+      "calmar": 0.2916696038797239,
+      "n_obs": 5147,
+      "avg_turnover": 0.0
+    },
+    "vix_timer": {
+      "sharpe": 0.8051922988761953,
+      "ann_return": 0.062427872648296745,
+      "ann_vol": 0.07910831121333284,
+      "max_drawdown": -0.1435888054467762,
+      "calmar": 0.43476838221512165,
+      "n_obs": 5147,
+      "avg_turnover": 0.031377501457159514
+    },
+    "plain_50_200_trend": {
+      "sharpe": 0.6966252921461643,
+      "ann_return": 0.09173086914159168,
+      "ann_vol": 0.14014762530115538,
+      "max_drawdown": -0.33717263100607664,
+      "calmar": 0.2720590602739001,
+      "n_obs": 5147,
+      "avg_turnover": 0.0038857586943850785
+    }
+  },
+  "test2_beyond_vix": {
+    "overlapping_newey_west_lag21": {
+      "intercept": {
+        "coef": -0.0011279150334248225,
+        "nw_tstat": -0.15014049729735704
+      },
+      "h_z": {
+        "coef": 0.0041053050123870186,
+        "nw_tstat": 2.0138361490909737
+      },
+      "vix": {
+        "coef": 0.0579774361727102,
+        "nw_tstat": 1.3687240888430505
+      },
+      "dvix": {
+        "coef": 0.011967782734783557,
+        "nw_tstat": 0.2491539190354525
+      }
+    },
+    "nonoverlapping_monthly_ols": {
+      "intercept": {
+        "coef": -0.002587645338126827,
+        "ols_tstat": -0.33879234444892964
+      },
+      "h_z": {
+        "coef": 0.007894165891301744,
+        "ols_tstat": 2.8971302987975385
+      },
+      "vix": {
+        "coef": 0.06612062661180647,
+        "ols_tstat": 1.8343286058333044
+      },
+      "dvix": {
+        "coef": -0.024028439308861553,
+        "ols_tstat": -0.46057241771135116
+      },
+      "_n_obs": 245,
+      "_r2": 0.043447527497925464
+    },
+    "r2_h_z_on_vix": 0.09768215554800486,
+    "corr_h_z_vix": -0.1781954419921931,
+    "note": "fwd = next-21d SPY return; controls = VIX level + trailing-21d VIX change."
+  },
+  "test3_plateau_oos": {
+    "heatmap": {
+      "win90_thr0.4": {
+        "sharpe_full": 0.5693859766100747,
+        "maxdd_full": -0.1622051271261764,
+        "sharpe_post2010": 0.7003440062663273,
+        "maxdd_post2010": -0.12303404915628158
+      },
+      "win90_thr0.5": {
+        "sharpe_full": 0.5846665796323822,
+        "maxdd_full": -0.20553168986110604,
+        "sharpe_post2010": 0.7676183454143137,
+        "maxdd_post2010": -0.10006906872268262
+      },
+      "win90_thr0.6": {
+        "sharpe_full": 0.6498082602856998,
+        "maxdd_full": -0.1903356705748317,
+        "sharpe_post2010": 0.8349138179207867,
+        "maxdd_post2010": -0.09462433505618906
+      },
+      "win120_thr0.4": {
+        "sharpe_full": 0.5575433769730128,
+        "maxdd_full": -0.20632876496096653,
+        "sharpe_post2010": 0.6600947816572167,
+        "maxdd_post2010": -0.1485340496220714
+      },
+      "win120_thr0.5": {
+        "sharpe_full": 0.5658353912506335,
+        "maxdd_full": -0.1976177837719818,
+        "sharpe_post2010": 0.6837971154641632,
+        "maxdd_post2010": -0.17782677075001319
+      },
+      "win120_thr0.6": {
+        "sharpe_full": 0.5287635253842499,
+        "maxdd_full": -0.19193395476537167,
+        "sharpe_post2010": 0.5916215362331375,
+        "maxdd_post2010": -0.17750458782613265
+      },
+      "win150_thr0.4": {
+        "sharpe_full": 0.4814267663498073,
+        "maxdd_full": -0.2388213027595918,
+        "sharpe_post2010": 0.5605539957070783,
+        "maxdd_post2010": -0.16439895738435262
+      },
+      "win150_thr0.5": {
+        "sharpe_full": 0.39622241222738247,
+        "maxdd_full": -0.2623198017511976,
+        "sharpe_post2010": 0.480206540119264,
+        "maxdd_post2010": -0.16998208109170965
+      },
+      "win150_thr0.6": {
+        "sharpe_full": 0.4178278709660748,
+        "maxdd_full": -0.25902266743315694,
+        "sharpe_post2010": 0.4805225698294971,
+        "maxdd_post2010": -0.15210347084984444
+      }
+    },
+    "windows": [
+      90,
+      120,
+      150
+    ],
+    "thresholds": [
+      0.4,
+      0.5,
+      0.6
+    ]
+  },
+  "verdict": {
+    "beats_spy": false,
+    "beats_6040": false,
+    "beats_vix_timer": false,
+    "adds_over_plain_trend": false,
+    "h_z_beyond_vix_nonoverlap_significant": true,
+    "h_z_beyond_vix_hac_significant": true,
+    "h_z_low_r2_on_vix": true,
+    "passes_all_required_baselines": false
+  }
+}
