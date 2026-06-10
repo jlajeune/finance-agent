@@ -12,3 +12,4 @@ report, and per-strategy evaluation JSON.
 | `run-0005-20260610T140538Z` | 5 | 1 | 0 | Cross-domain build #1 (Absorption Ratio, RMT). REJECT: cuts drawdown but redundant with VIX; the orthogonal-alpha claim was an overlapping-returns t-stat artifa |
 | `run-0006-20260610T212239Z` | 6 | 1 | 0 | Model split: 2 Fable agents produced a ranked 10-idea cross-domain backlog (physics+biology); Opus built+self-vetted the top pick (Zumbach vol overlay). REJECTE |
 | `run-0007-20260610T213557Z` | 7 | 1 | 0 | B1 path-memory (DFA-Hurst) timer: rejected as standalone (over-de-risks) but the signal is the FIRST cross-domain input to pass the honest beyond-VIX test (t~2- |
+| `run-0008-20260610T222300Z` | 8 | 1 | 0 | First novelty-first build: path-memory H_z tilt x vol-target. Looked like a modest PASS but red-team REJECTED - noise, cost-fragile, and fails a persistence-mat |

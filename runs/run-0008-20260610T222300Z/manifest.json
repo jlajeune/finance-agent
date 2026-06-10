@@ -1,0 +1,35 @@
+{
+  "run_id": "run-0008-20260610T222300Z",
+  "created_utc": "2026-06-10T22:23:00Z",
+  "cycle": 8,
+  "mode": "first novelty-first build (Opus) + red-team (Opus)",
+  "idea_provenance": "novel combination: H_z path-memory signal (cycle 7) x voltarget_spy (cycle 2)",
+  "strategies": [
+    {
+      "id": "voltarget_pathmemory",
+      "family": "volatility_timing/path_geometry",
+      "net_sharpe": 0.76,
+      "max_drawdown": -0.232,
+      "prior_art": "extends: voltarget_spy + diffusion H_z",
+      "novel_combination": "DFA-Hurst path-memory tilt ON vol-target sizing",
+      "verdict": "REJECT",
+      "reason": "build beat incumbent on Sharpe-AND-DD but red-team killed it: edge is noise (difference-Sharpe -0.22, paired t=-1.0), cost-fragile (break-even ~12.5bps), and FAILS persistence-matched placebo (p~0.10-0.12) - not Hurst-specific, indistinguishable from a random-turnover tilt"
+    }
+  ],
+  "survivors": 0,
+  "summary": "First novelty-first build: path-memory H_z tilt x vol-target. Looked like a modest PASS but red-team REJECTED - noise, cost-fragile, and fails a persistence-matched placebo (not signal-specific). H_z downgraded from 'validated signal' to 'beyond-VIX but not tradable'. Placebo + difference-significance tests now standard red-team checks.",
+  "process_changes": [
+    "persistence-matched placebo + difference-series significance added to red-team-quant.md"
+  ],
+  "next_cycle_seeds": [
+    "B2 cross-sectional diversity (under stricter placebo bar)",
+    "P2 multifractal log-vol",
+    "if salvaging: reframe path-memory as low-turnover drawdown overlay, must beat matched-persistence placebo OOS"
+  ],
+  "standing_recommendation": "voltarget_spy remains the ONLY validated strategy",
+  "artifacts": [
+    "cycle_8_report.md",
+    "voltarget_pathmemory_analysis.json",
+    "eval_voltarget_pathmemory.json"
+  ]
+}

@@ -83,7 +83,7 @@
     {
       "id": "voltarget_pathmemory",
       "cycle": 8,
-      "status": "proposed",
+      "status": "rejected",
       "sharpe": 0.8293116241947734,
       "maxdd": -0.15461392575648758
     }

@@ -15,6 +15,12 @@ Status legend: `queued` · `building` · `validated` · `rejected`
 ## Already resolved (for context)
 - Absorption Ratio (RMT/PCA coupling) — **rejected** (cycle 5): cut drawdown but redundant
   with VIX; orthogonal-alpha claim was an overlapping-returns t-stat artifact.
+- B1 diffusion-exponent (path-memory H_z) — **rejected as standalone** (cycle 7); H_z looked
+  beyond-VIX (t≈2–2.9) so we tried re-homing it as an overlay (below).
+- `voltarget_pathmemory` = H_z tilt × vol-target (cycle 8) — **rejected**: edge is noise &
+  cost-fragile and **fails a persistence-matched placebo** (indistinguishable from a random
+  tilt of the same turnover). Lesson: a beyond-VIX signal is not automatically tradable; H_z
+  downgraded to "statistically orthogonal, not shown tradable." Placebo test now standard.
 - `voltarget_spy` (volatility_timing) — **validated** (cycle 2): the only standing winner.
 - Prior briefs also shelved: LPPL/Sornette, Hawkes, critical-slowing-down, SIR, permutation/
   transfer entropy, TDA, reservoir computing, HMM/jump models, MST/correlation networks.

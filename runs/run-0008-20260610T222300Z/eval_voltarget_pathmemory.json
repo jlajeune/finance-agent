@@ -1,0 +1,103 @@
+{
+  "id": "voltarget_pathmemory",
+  "thesis": "Path-memory-gated vol-target overlay on SPY. BASE weight = the validated voltarget_spy sizing (inverse trailing-60d realized vol, ~11% target, capped 1x, weekly rebalance, no-trade band). OVERLAY = a gentle, bounded, monotone multiplicative tilt g(H_z) = clip(1 + k*tanh(H_z), g_min, g_max) driven by the DFA-Hurst path-memory z-score H_z (DFA window 120, z-window 252) -- the cycle-7 signal shown to predict next-month returns BEYOND VIX. Persistent/trending regime (H_z high) allows full-to-slightly-higher exposure; choppy/mean-reverting regime (H_z low) trims exposure modestly (never to zero, unlike the rejected binary timer), because that is where the equity premium is weakest and tail-clustering worst. Vol amplitude (the base) and path memory (the tilt) are orthogonal axes. Long/flat SPY, frozen params, look-ahead-safe.",
+  "taxonomy": [
+    "volatility_timing",
+    "path_geometry"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "asset": "SPY",
+    "vol_window": 60,
+    "target_vol": 0.11,
+    "max_leverage": 1.0,
+    "rebalance": 5,
+    "band": 0.05,
+    "dfa_window": 120,
+    "z_window": 252,
+    "k": 0.3,
+    "g_min": 0.6,
+    "g_max": 1.1
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.07798423415113587,
+    "ann_vol": 0.10620927231871603,
+    "sharpe": 0.7603203492522327,
+    "sortino": 0.7031490884629865,
+    "max_drawdown": -0.231993073176465,
+    "calmar": 0.33614897670594385,
+    "hit_rate": 0.5484050445103857,
+    "t_stat": 3.516991231108046,
+    "n_obs": 5392,
+    "avg_turnover": 0.014436849714696826,
+    "gross_sharpe": 0.77741024898957,
+    "cost_drag_ann": 0.0019615451449392918
+  },
+  "oos": {
+    "split_at": "2017-11-07",
+    "in_sample": {
+      "ann_return": 0.07390248419040968,
+      "ann_vol": 0.10349797640086306,
+      "sharpe": 0.7407998270555783,
+      "sortino": 0.6890337828483535,
+      "max_drawdown": -0.231993073176465,
+      "calmar": 0.3185547015629899,
+      "hit_rate": 0.5452859350850078,
+      "t_stat": 2.6542250546628736,
+      "n_obs": 3235
+    },
+    "out_of_sample": {
+      "ann_return": 0.08413501317056005,
+      "ann_vol": 0.11017377752144358,
+      "sharpe": 0.7885252626566697,
+      "sortino": 0.7241733981869201,
+      "max_drawdown": -0.1546139257564879,
+      "calmar": 0.5441619359893238,
+      "hit_rate": 0.5530829856281873,
+      "t_stat": 2.306961856457398,
+      "n_obs": 2157
+    },
+    "sharpe_decay": -0.047725435601091326
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.48669893321959834,
+      0.8227927953618763,
+      0.8685448858040575,
+      0.8639587934113383
+    ],
+    "mean_sharpe": 0.7604988519492176,
+    "std_sharpe": 0.18368889986546302,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.77741024898957,
+      "5": 0.7603203492522327,
+      "10": 0.7432183125475185,
+      "20": 0.7089807221000858,
+      "40": 0.6403918092675722
+    },
+    "ann_return": {
+      "0": 0.07994577929607516,
+      "5": 0.07798423415113587,
+      "10": 0.07602606633818887,
+      "20": 0.072119840673043,
+      "40": 0.06434767541505426
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.04789568002055195,
+    "n_trials": 10,
+    "n_obs": 5392,
+    "deflated_sharpe_prob": 0.9725277204335554,
+    "passes": true
+  },
+  "latest_weights": {
+    "SPY": 0.8116
+  }
+}
