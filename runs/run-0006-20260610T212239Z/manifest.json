@@ -1,0 +1,34 @@
+{
+  "run_id": "run-0006-20260610T212239Z",
+  "created_utc": "2026-06-10T21:22:39Z",
+  "cycle": 6,
+  "mode": "cross-domain ideation (Fable) + build (Opus), model split",
+  "idea_provenance": "Fable physics+biology cross-domain web research -> research/strategy_backlog.md",
+  "strategies": [
+    {
+      "id": "zumbach_vol_overlay",
+      "family": "volatility_timing/time_irreversibility",
+      "net_sharpe": 0.79,
+      "max_drawdown": -0.295,
+      "verdict": "REJECT",
+      "reason": "leverage effect not symmetric Zumbach (NW b_up t=-0.81, b_dn t=+4.60); fails Sharpe-AND-drawdown vs incumbent voltarget_spy (0.80 vs 0.75 Sharpe but worse maxDD -23.7% vs -21.1%, 2.6x turnover)"
+    }
+  ],
+  "survivors": 0,
+  "summary": "Model split: 2 Fable agents produced a ranked 10-idea cross-domain backlog (physics+biology); Opus built+self-vetted the top pick (Zumbach vol overlay). REJECTED: it's the leverage effect, not the time-irreversible Zumbach effect, and worsens drawdown vs the incumbent. Backlog is the durable asset (8 ideas queued).",
+  "infra_changes": [
+    "added time_irreversibility taxonomy",
+    "ranked cross-domain backlog research/strategy_backlog.md"
+  ],
+  "next_cycle_seeds": [
+    "B1 foraging diffusion-exponent (Levy/Brownian)",
+    "P2 multifractal log-vol forecaster",
+    "B2 cross-sectional diversity"
+  ],
+  "standing_recommendation": "voltarget_spy (~76% SPY / 24% cash) remains the only validated strategy",
+  "artifacts": [
+    "cycle_6_report.md",
+    "zumbach_analysis.json",
+    "eval_zumbach_vol_overlay.json"
+  ]
+}

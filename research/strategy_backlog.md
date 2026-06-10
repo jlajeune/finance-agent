@@ -98,7 +98,11 @@ interaction-matrix eigenvalue (≈ Absorption Ratio, already rejected).
 
 ## PHYSICS branch (Fable, cycle 6) — full source list in commit
 
-### P1 — Zumbach time-reversal-asymmetry vol overlay  · `queued` · OVERALL TOP PICK
+### P1 — Zumbach time-reversal-asymmetry vol overlay  · `rejected` (cycle 6) · was TOP PICK
+- **Result (cycle 6):** REJECTED — it's the **leverage effect, not the symmetric Zumbach
+  effect** (Newey-West: b_up t=−0.81 insignificant, b_dn t=+4.60), and it **fails
+  Sharpe-AND-drawdown** vs the incumbent `voltarget_spy` (Sharpe 0.80 vs 0.75 but maxDD
+  −23.7% vs −21.1%, 2.6× turnover). See `reports/cycle_6_report.md`.
 - **Domain/technique:** non-equilibrium stat-mech (broken time-reversal symmetry). The
   "Zumbach effect": past *trends* (squared multi-day return sums) predict future vol, but
   past vol does not predict future trends. Forecast σ²(t+1..h) = a·RV₂₂ + b·Z, where
