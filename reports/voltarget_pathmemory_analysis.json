@@ -1,0 +1,143 @@
+{
+  "config": {
+    "cost_bps": 5.0,
+    "start": "2005-01-01",
+    "gross_leverage": null,
+    "frozen_params": {
+      "asset": "SPY",
+      "vol_window": 60,
+      "target_vol": 0.11,
+      "max_leverage": 1.0,
+      "rebalance": 5,
+      "band": 0.05,
+      "dfa_window": 120,
+      "z_window": 252,
+      "k": 0.3,
+      "g_min": 0.6,
+      "g_max": 1.1
+    }
+  },
+  "comparison_table": {
+    "voltarget_pathmemory": {
+      "sharpe": 0.7603203492522327,
+      "ann_return": 0.07798423415113587,
+      "ann_vol": 0.10620927231871603,
+      "max_drawdown": -0.231993073176465,
+      "calmar": 0.33614897670594385,
+      "n_obs": 5392,
+      "avg_turnover": 0.014436849714696826
+    },
+    "voltarget_spy": {
+      "sharpe": 0.7409816218143762,
+      "ann_return": 0.08154701194027303,
+      "ann_vol": 0.11470735039846942,
+      "max_drawdown": -0.2618610440382221,
+      "calmar": 0.31141330028597214,
+      "n_obs": 5392,
+      "avg_turnover": 0.0038369907459730587
+    },
+    "buyhold_SPY": {
+      "sharpe": 0.6380284810944983,
+      "ann_return": 0.10844484767118234,
+      "ann_vol": 0.1895861032430742,
+      "max_drawdown": -0.5518942970150921,
+      "calmar": 0.19649568451369015,
+      "n_obs": 5392,
+      "avg_turnover": 0.000185459940652819
+    },
+    "static_60_40": {
+      "sharpe": 0.80132655728468,
+      "ann_return": 0.08640960890136795,
+      "ann_vol": 0.11114551777541125,
+      "max_drawdown": -0.2992280758299689,
+      "calmar": 0.2887750711950863,
+      "n_obs": 5392,
+      "avg_turnover": 0.000185459940652819
+    }
+  },
+  "incremental_tilt_contribution": {
+    "base_only_g1": {
+      "sharpe": 0.7409816218143762,
+      "ann_return": 0.08154701194027303,
+      "ann_vol": 0.11470735039846942,
+      "max_drawdown": -0.2618610440382221,
+      "calmar": 0.31141330028597214,
+      "n_obs": 5392,
+      "avg_turnover": 0.0038369907459730587
+    },
+    "with_tilt": {
+      "sharpe": 0.7603203492522327,
+      "ann_return": 0.07798423415113587,
+      "ann_vol": 0.10620927231871603,
+      "max_drawdown": -0.231993073176465,
+      "calmar": 0.33614897670594385,
+      "n_obs": 5392,
+      "avg_turnover": 0.014436849714696826
+    },
+    "d_sharpe": 0.019338727437856473,
+    "d_maxdd": 0.029867970861757076
+  },
+  "param_grid_plateau": {
+    "gmin=0.5,k=0.2": {
+      "sharpe": 0.7495,
+      "max_drawdown": -0.2452
+    },
+    "gmin=0.5,k=0.3": {
+      "sharpe": 0.7603,
+      "max_drawdown": -0.232
+    },
+    "gmin=0.5,k=0.4": {
+      "sharpe": 0.7606,
+      "max_drawdown": -0.2302
+    },
+    "gmin=0.6,k=0.2": {
+      "sharpe": 0.7495,
+      "max_drawdown": -0.2452
+    },
+    "gmin=0.6,k=0.3": {
+      "sharpe": 0.7603,
+      "max_drawdown": -0.232
+    },
+    "gmin=0.6,k=0.4": {
+      "sharpe": 0.7606,
+      "max_drawdown": -0.2302
+    },
+    "gmin=0.7,k=0.2": {
+      "sharpe": 0.7495,
+      "max_drawdown": -0.2452
+    },
+    "gmin=0.7,k=0.3": {
+      "sharpe": 0.7603,
+      "max_drawdown": -0.232
+    },
+    "gmin=0.7,k=0.4": {
+      "sharpe": 0.759,
+      "max_drawdown": -0.2287
+    }
+  },
+  "post_2010_oos": {
+    "voltarget_pathmemory": {
+      "sharpe": 0.8538586171644206,
+      "ann_return": 0.0890556523391921,
+      "ann_vol": 0.1065950520095777,
+      "max_drawdown": -0.1546139257564877,
+      "calmar": 0.5759872657230894,
+      "n_obs": 4133,
+      "avg_turnover": 0.01548387967037582
+    },
+    "voltarget_spy": {
+      "sharpe": 0.8516908653968842,
+      "ann_return": 0.09585677308503193,
+      "ann_vol": 0.11532027379980715,
+      "max_drawdown": -0.1972401649793455,
+      "calmar": 0.48599012830408966,
+      "n_obs": 4133,
+      "avg_turnover": 0.003951240551111542
+    }
+  },
+  "verdict": {
+    "beats_incumbent_sharpe": true,
+    "not_worse_maxdd": true,
+    "PASS_bar": true
+  }
+}
