@@ -1,0 +1,33 @@
+{
+  "run_id": "run-0005-20260610T140538Z",
+  "created_utc": "2026-06-10T14:05:38Z",
+  "cycle": 5,
+  "mode": "cross-domain build #1 (Absorption Ratio) + adversarial vetting",
+  "idea_provenance": "cross-domain ideation brief; Kritzman-Li-Page-Rigobon 2011 (RMT/PCA)",
+  "data_source": "yfinance; 9 sector SPDRs + SPY/VIX; signal live 2004-2026",
+  "strategies": [
+    {
+      "id": "absorption_ratio_timer",
+      "family": "market_state_structural/volatility_timing",
+      "net_sharpe": 0.41,
+      "max_drawdown": -0.23,
+      "vix_timer_sharpe": 0.48,
+      "spy_sharpe": 0.65,
+      "sixty40_sharpe": 0.83,
+      "dar_fwd_tstat_naive": 3.77,
+      "dar_fwd_tstat_monthly": 0.46,
+      "dar_fwd_tstat_nw": 1.11,
+      "verdict": "REJECT",
+      "reason": "Real drawdown cut (-55%->-23%) but loses Sharpe to VIX-timer/SPY/60-40; the claimed orthogonal forward-return alpha (t=3.77) was overlapping-returns inflation -> honest non-overlapping monthly t=0.46, Newey-West daily t=1.11 (insignificant). No salvage (AR+VIX) beats VIX. Fragility redundant with VIX at monthly horizon."
+    }
+  ],
+  "survivors": 0,
+  "summary": "Cross-domain build #1 (Absorption Ratio, RMT). REJECT: cuts drawdown but redundant with VIX; the orthogonal-alpha claim was an overlapping-returns t-stat artifact (3.77 -> 0.46 honest). Adversarial layer caught the inflation.",
+  "infra_idea": "add HAC/non-overlapping predictive-regression helper to validation.py",
+  "standing_recommendation": "voltarget_spy (~76% SPY / 24% cash) remains the only validated strategy",
+  "artifacts": [
+    "cycle_5_report.md",
+    "eval_absorption_ratio_timer.json",
+    "absorption_ratio_analysis.json"
+  ]
+}

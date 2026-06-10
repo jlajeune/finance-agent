@@ -1,0 +1,100 @@
+{
+  "id": "absorption_ratio_timer",
+  "thesis": "Absorption Ratio fragility timer (Kritzman, Li, Page & Rigobon 2011): each day, PCA the trailing-500d correlation matrix of the 9 classic sector SPDRs and take AR = share of variance absorbed by the top 2 of 9 eigenvalues. A rising, extreme AR means sectors are tightly coupled -- a fragile, shock-amplifying regime that precedes drawdowns. Trade a standardized AR shift dAR = (15d mean - 252d mean)/252d std: dAR>+1 -> cash, dAR<-1 -> full SPY, else half. This times SPY vs cash on cross-sectional COUPLING structure, which is orthogonal to trend, vol level, and VRP. Frozen params, ETF universe (no survivorship bias), look-ahead-safe trailing windows; must beat buy-and-hold, a VIX-level timer, and 60/40 on net Sharpe AND drawdown to survive.",
+  "taxonomy": [
+    "market_state_structural",
+    "volatility_timing"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "asset": "SPY",
+    "corr_window": 500,
+    "k": 2,
+    "short_window": 15,
+    "long_window": 252,
+    "hi_thresh": 1.0,
+    "lo_thresh": 1.0,
+    "band": 0.1
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.0353667630069181,
+    "ann_vol": 0.09494187167067661,
+    "sharpe": 0.41359711020462614,
+    "sortino": 0.31121187935921,
+    "max_drawdown": -0.23009982516763894,
+    "calmar": 0.15370182476736646,
+    "hit_rate": 0.35814826399749766,
+    "t_stat": 2.0833562568530595,
+    "n_obs": 6394,
+    "avg_turnover": 0.005317485142320926,
+    "gross_sharpe": 0.42062975776414907,
+    "cost_drag_ann": 0.0006933040264889279
+  },
+  "oos": {
+    "split_at": "2016-04-05",
+    "in_sample": {
+      "ann_return": 0.01745671705062901,
+      "ann_vol": 0.07812769910443847,
+      "sharpe": 0.2607117122769479,
+      "sortino": 0.17286102224204322,
+      "max_drawdown": -0.22385894861275935,
+      "calmar": 0.07798087661363218,
+      "hit_rate": 0.2995307612095933,
+      "t_stat": 1.0171841184705175,
+      "n_obs": 3836
+    },
+    "out_of_sample": {
+      "ann_return": 0.06281743643918936,
+      "ann_vol": 0.11565739389645033,
+      "sharpe": 0.5845593581406471,
+      "sortino": 0.5054605082365903,
+      "max_drawdown": -0.23009982516763783,
+      "calmar": 0.2730008003848942,
+      "hit_rate": 0.44605160281469897,
+      "t_stat": 1.8624242471859196,
+      "n_obs": 2558
+    },
+    "sharpe_decay": -0.3238476458636992
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.46986949368293845,
+      0.056337756082701335,
+      0.5368556201958978,
+      0.5933312252921198
+    ],
+    "mean_sharpe": 0.4140985238134144,
+    "std_sharpe": 0.24378736226410486,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.42062975776414907,
+      "5": 0.41359711020462614,
+      "10": 0.4065561738301711,
+      "20": 0.3924509820897357,
+      "40": 0.36415822599349734
+    },
+    "ann_return": {
+      "0": 0.03606006703340703,
+      "5": 0.0353667630069181,
+      "10": 0.034673749877090154,
+      "20": 0.033288596109749324,
+      "40": 0.03052177716046467
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.026054168966105132,
+    "n_trials": 1,
+    "n_obs": 6394,
+    "deflated_sharpe_prob": 0.9810383860292272,
+    "passes": true
+  },
+  "latest_weights": {
+    "SPY": 1.0
+  }
+}
