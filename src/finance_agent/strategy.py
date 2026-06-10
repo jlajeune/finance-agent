@@ -38,6 +38,7 @@ TAXONOMY = [
     "microstructure",
     "event_driven",
     "market_state_structural",
+    "time_irreversibility",
 ]
 
 

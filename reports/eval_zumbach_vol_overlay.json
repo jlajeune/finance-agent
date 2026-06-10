@@ -1,0 +1,102 @@
+{
+  "id": "zumbach_vol_overlay",
+  "thesis": "Zumbach time-reversal-asymmetry vol overlay on SPY: forecast next-period variance as a*RV22 + b*Z, where Z is the SQUARED causal EMA trend of daily log returns (half-life ~15d) and RV22 is trailing Garman-Klass realised variance. Volatility is time-irreversible: past signed trends predict future vol beyond the level of recent realised vol (Zumbach effect). Size SPY inversely to sqrt(forecast), capped at 1x, weekly rebalance + no-trade band. a,b>=0 fit by expanding-window walk-forward NNLS (no full-sample fit, causal EMA only). The signed-trend term conditions on information that plain vol-target and VIX-level sizers ignore, so it can flag vol rises inside low-VIX melt-ups.",
+  "taxonomy": [
+    "volatility_timing",
+    "time_irreversibility"
+  ],
+  "feature_families": [
+    "price"
+  ],
+  "universe": "default",
+  "params": {
+    "asset": "SPY",
+    "rv_window": 22,
+    "trend_hl": 15.0,
+    "fwd_window": 22,
+    "target_vol": 0.11,
+    "max_leverage": 1.0,
+    "rebalance": 5,
+    "band": 0.05,
+    "min_train": 756,
+    "refit_every": 63
+  },
+  "gross_leverage": null,
+  "headline": {
+    "ann_return": 0.09244401663977131,
+    "ann_vol": 0.12063499716084447,
+    "sharpe": 0.7935140091670577,
+    "sortino": 0.7313584218993092,
+    "max_drawdown": -0.29523746652438543,
+    "calmar": 0.3131174973422142,
+    "hit_rate": 0.550259643916914,
+    "t_stat": 3.6705341567493717,
+    "n_obs": 5392,
+    "avg_turnover": 0.009278006716461716,
+    "gross_sharpe": 0.8031939040533451,
+    "cost_drag_ann": 0.0012772456732552673
+  },
+  "oos": {
+    "split_at": "2017-11-07",
+    "in_sample": {
+      "ann_return": 0.0808446194054886,
+      "ann_vol": 0.1159246063934512,
+      "sharpe": 0.7288070632304262,
+      "sortino": 0.6734286324259632,
+      "max_drawdown": -0.29523746652438543,
+      "calmar": 0.2738291327222562,
+      "hit_rate": 0.5486862442040186,
+      "t_stat": 2.611255964961689,
+      "n_obs": 3235
+    },
+    "out_of_sample": {
+      "ann_return": 0.11007418692180004,
+      "ann_vol": 0.1273935031639173,
+      "sharpe": 0.8837286414601585,
+      "sortino": 0.812213767262265,
+      "max_drawdown": -0.2153047222005594,
+      "calmar": 0.5112483636994473,
+      "hit_rate": 0.5526193787668058,
+      "t_stat": 2.5854951817760345,
+      "n_obs": 2157
+    },
+    "sharpe_decay": -0.1549215782297323
+  },
+  "subsample": {
+    "sub_sharpes": [
+      0.3569507800032694,
+      0.8912359053944124,
+      1.0249039852383144,
+      0.8937903424943148
+    ],
+    "mean_sharpe": 0.7917202532825778,
+    "std_sharpe": 0.2964910430751142,
+    "fraction_positive": 1.0
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": 0.8031939040533451,
+      "5": 0.7935140091670577,
+      "10": 0.7838281691527266,
+      "20": 0.7644394964755307,
+      "40": 0.7256000995316267
+    },
+    "ann_return": {
+      "0": 0.09372126231302658,
+      "5": 0.09244401663977131,
+      "10": 0.09116814131073525,
+      "20": 0.0886204962585615,
+      "40": 0.08354159065960287
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": 0.04998668405004435,
+    "n_trials": 1,
+    "n_obs": 5392,
+    "deflated_sharpe_prob": 0.9998515191973647,
+    "passes": true
+  },
+  "latest_weights": {
+    "SPY": 1.0
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "test1_must_beat": {
+    "eval_start": "2008-01-04",
+    "zumbach": {
+      "sharpe": 0.8025767414581618,
+      "ann_return": 0.095016719579051,
+      "ann_vol": 0.12248541942931854,
+      "max_drawdown": -0.23685704348648662,
+      "calmar": 0.40115640295270333,
+      "n_obs": 4636,
+      "avg_turnover": 0.010013399240558303
+    },
+    "voltarget_spy": {
+      "sharpe": 0.7461565233193229,
+      "ann_return": 0.08314585559373566,
+      "ann_vol": 0.1161092187045322,
+      "max_drawdown": -0.2108862686809181,
+      "calmar": 0.39426870281222376,
+      "n_obs": 4636,
+      "avg_turnover": 0.0038850740391655585
+    },
+    "vix_sizer": {
+      "sharpe": 0.7753229072631661,
+      "ann_return": 0.0667936277639587,
+      "ann_vol": 0.08845848797533164,
+      "max_drawdown": -0.19355400630969533,
+      "calmar": 0.3450903912424619,
+      "n_obs": 4636,
+      "avg_turnover": 0.010785245567871134
+    },
+    "buy_hold_spy": {
+      "sharpe": 0.6376008478332724,
+      "ann_return": 0.11264085314466832,
+      "ann_vol": 0.19828710365892588,
+      "max_drawdown": -0.5148146926030428,
+      "calmar": 0.21879883143024842,
+      "n_obs": 4636,
+      "avg_turnover": 0.0
+    }
+  },
+  "test2_leverage_guard": {
+    "full_sample_signed_nw": {
+      "intercept": {
+        "coef": 0.018215946518238393,
+        "nw_tstat": 4.479527644677101
+      },
+      "a_RV22": {
+        "coef": 0.6272785240828402,
+        "nw_tstat": 5.256179730623014
+      },
+      "b_up": {
+        "coef": -3.300239206270632,
+        "nw_tstat": -0.8127540248433721
+      },
+      "b_dn": {
+        "coef": 12.861443205887014,
+        "nw_tstat": 4.595076657910339
+      }
+    },
+    "full_sample_symmetric_nw": {
+      "intercept": {
+        "coef": 0.013154797962091968,
+        "nw_tstat": 4.000602897645588
+      },
+      "a_RV22": {
+        "coef": 0.6585102938934074,
+        "nw_tstat": 5.463696749795311
+      },
+      "b_Z": {
+        "coef": 12.035401686248308,
+        "nw_tstat": 4.541380510306126
+      }
+    },
+    "walk_forward_signed": {
+      "b_up_mean": 10.71680339225404,
+      "b_dn_mean": 11.959933069570349,
+      "b_up_frac_positive": 1.0
+    },
+    "symmetric_vs_leverage_only": {
+      "full_signed_sharpe": 0.7980202324625405,
+      "full_signed_maxdd": -0.23588506285323485,
+      "dn_only_sharpe": 0.79893131747435,
+      "dn_only_maxdd": -0.23733264376023555,
+      "delta_sharpe_from_adding_up": -0.000911085011809476
+    },
+    "hac_lags": 22,
+    "note": "NW HAC lags = fwd_window because forward-var targets overlap by that much."
+  },
+  "verdict": {
+    "beats_incumbent_sharpe_and_dd": false,
+    "beats_vix_sharpe_and_dd": false,
+    "b_up_positive_and_significant": false,
+    "summary": "LIKELY LEVERAGE-EFFECT ONLY"
+  }
+}
