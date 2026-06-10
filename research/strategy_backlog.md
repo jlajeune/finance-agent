@@ -96,14 +96,105 @@ interaction-matrix eigenvalue (≈ Absorption Ratio, already rejected).
 
 ---
 
-## PHYSICS branch (Fable, cycle 6) — **PENDING** (agent still running; will append on completion)
+## PHYSICS branch (Fable, cycle 6) — full source list in commit
+
+### P1 — Zumbach time-reversal-asymmetry vol overlay  · `queued` · OVERALL TOP PICK
+- **Domain/technique:** non-equilibrium stat-mech (broken time-reversal symmetry). The
+  "Zumbach effect": past *trends* (squared multi-day return sums) predict future vol, but
+  past vol does not predict future trends. Forecast σ²(t+1..h) = a·RV₂₂ + b·Z, where
+  Z=[Σ K(τ)r(t−τ)]² (squared EMA-trend, half-life ~10–20d); size = min(1, target_vol/σ̂).
+- **Edge beyond VIX:** conditions on *signed trend* (time-irreversible), so it forecasts vol
+  rises from **low-VIX melt-ups** where a VIX-timer and plain vol-target are blind. A 2-param
+  additive upgrade to our *only validated strategy*.
+- **Build:** SPY closes (+H/L for Garman–Klass RV baseline); walk-forward fit a,b≥0 (or freeze
+  b/a on first half); weekly rebalance + hysteresis. `volatility_timing` / new `time_irreversibility`.
+- **Must beat:** the **validated `voltarget_spy` itself** AND a VIX-sized variant, on net Sharpe
+  AND maxDD; report whether b's incremental t-stat survives walk-forward.
+- **Risk+guard:** trend² overlaps the leverage effect → also fit signed b⁺Z_up+b⁻Z_down and
+  require the *symmetric* (b⁺>0) part to add Sharpe over a leverage-effect-only baseline. (NOT
+  the shelved Hawkes idea — no point-process/intensity estimation; 2 frozen hyperparameters.)
+- **Sources:** Zumbach 2007 (SSRN 1004992); Bouchaud 2022; El Euch-Gatheral-Radoičić-Rosenbaum
+  2019 (arXiv 1809.02098); QHawkes microstructure (arXiv 1901.00834). Empirically corroborated, low-moderate crowding.
+
+### P2 — Multifractal-cascade log-vol forecaster (MRW/MSM)  · `queued`
+- **Domain/technique:** turbulence/intermittency. Log-vol has log-decaying autocovariance
+  C(τ)≈λ²·ln(T/τ) (Bacry–Muzy MRW) → closed-form ~2-param long-memory vol predictor.
+- **Edge beyond VIX:** multi-horizon physical-measure vol forecast (1d/1w/1m, same 2 params);
+  log-kernel keeps old vol info a 22d RV throws away. Sattarhoff–Lux (IJF 2023): MRW beat 10
+  classical models OOS.
+- **Build:** SPY (±QQQ/IWM pooling); Garman–Klass RV from O/H/L/C; kriging-style log-covariance
+  projection of log-RV; size = target_vol/exp(ω̂); freeze λ²,T pre-2015. `volatility_timing` /
+  `multifractal_scaling`.
+- **Must beat:** plain-RV vol-target AND EWMA(RiskMetrics) vol-target on net Sharpe AND maxDD,
+  plus QLIKE forecast loss vs EWMA (forecast gain must translate to portfolio gain).
+- **Risk+guard:** daily-bar gains may be small vs a good EWMA → pre-register "adopt only if
+  ΔSharpe≥0.05 and maxDD not worse"; causal RV smoothing only; freeze calibration pre-2015.
+- **Sources:** Duchon-Robert-Vargas (Math.Finance 2012, arXiv 0801.4220); Sattarhoff-Lux (IJF 2023);
+  Wu-Muzy-Bacry log-S-fBM (arXiv 2201.09516). Empirically supported, low crowding.
+
+### P3 — Kuramoto sector phase-synchronization  · `queued`
+- **Domain/technique:** coupled-oscillator synchronization. Extract a *causal* instantaneous
+  phase per sector ETF; Kuramoto order parameter R(t)=|mean e^{iφ}| measures phase-locking.
+  Rising R = coherent single-mode = fragile.
+- **Edge beyond VIX & AR:** *phase* alignment (timing/lead-lag), mathematically distinct from
+  amplitude covariance (Absorption Ratio eigenvalues) and average correlation; can build while
+  vol/VIX still low.
+- **Build:** 9 sector SPDRs; causal windowed Hilbert analytic-signal phase (NEVER full-sample
+  FFT — hard look-ahead leak); trade VIX-orthogonalized residual of R. `market_state_structural`/`synchronization`.
+- **Must beat:** SPY / 60-40 / VIX-timer on Sharpe AND maxDD; require |corr(R,VIX)|<~0.7 and an
+  incremental-info test **before** any backtest Sharpe (AR post-mortem discipline).
+- **Risk+guard:** Hilbert edge-effect look-ahead → causal-only + shuffled-time placebo; VIX
+  redundancy → mandatory orthogonalization first.
+- **Sources:** thinner/partly speculative — Kuramoto critical points (2015); phase-sync crisis
+  detection (arXiv 2001.11843); Rosenblum-Kurths method. Single-author 2025 preprint treated as untested.
+
+### P4 — Omori-law aftershock re-entry scheduler  · `queued` · post-crash overlay
+- **Domain/technique:** seismology relaxation. After a "main shock," vol relaxes as a power law
+  v(t)∝(t+c)^(−p), p≈0.2–0.5 (Omori). Re-lever along the curve to harvest post-crash recovery
+  that VIX-timers (slow to re-risk) sit out.
+- **Edge beyond VIX:** theory-based *forward decay schedule* for re-entry; VIX overstays elevated
+  post-shock (vol risk premium), so an Omori schedule re-risks earlier and faster.
+- **Build:** SPY; shock = |ret|>3×trailing-63d σ; fit p,c once pre-2015, freeze; w=min(1,
+  target_vol/max(σ_EWMA, v_omori)) so the curve auto-expires. `volatility_timing`/`event_relaxation`.
+- **Must beat:** plain vol-target + VIX-timer on net Sharpe AND maxDD; per-episode (2008/11/18/20/22).
+- **Risk+guard:** few shocks (~8–12) → one bad re-entry (Sep-2008 false bottom) dominates; cap
+  exposure increase at +25%/wk, leave-one-episode-out, must not worsen maxDD in any left-out episode.
+  Honest kinship: deterministic-kernel cousin of the shelved Hawkes idea (but 2 frozen params, no filtering).
+- **Sources:** Lillo-Mantegna (PRE 2003); Weber-Wang-Vodenska-Havlin-Stanley (PRE 2007). Empirically supported, older.
+
+### P5 — Fluctuation-theorem "market temperature" (gain/loss asymmetry)  · `queued` · speculative
+- **Domain/technique:** non-equilibrium thermodynamics. Rolling slope Δβ of ln[P(+Q)/P(−Q)] vs
+  return magnitude Q — a robustified asymmetry/skew measure. Claim: Δβ stability precedes crises.
+- **Edge beyond VIX:** a skew-like state variable orthogonal to vol level. **Speculative** (one
+  2025 preprint, one group).
+- **Build:** SPY 50–100d window; signal = z-score of Δβ and its dispersion; de-risk gate atop vol-target.
+  New `nonequilibrium_thermo`.
+- **Must beat:** vol-target alone on Sharpe AND maxDD, **and** must beat the same pipeline with plain
+  rolling skewness (else it's skew rebranded).
+- **Risk+guard:** ~50 points to fit a distribution slope → huge sampling error; block-bootstrap Δβ
+  for significance before any trading rule.
+- **Sources:** Ramezani et al. 2025 (arXiv 2509.23692). Crowding ~0 (because unproven).
+
+**Physics honorable mentions (logged, not this cycle):** entropy production in lead-lag networks
+(reduces to shelved transfer-entropy; daily lead-lag mostly dead); Ising susceptibility χ
+(coupling-level → same VIX-redundancy that killed AR); visibility-graph roughness (weaker-pedigree
+duplicate of P2's slot).
 
 ---
 
-## Suggested build order
-1. **B1 — foraging diffusion-exponent** (TOP: novel, prices-only, orthogonal path-memory axis, falsifiable).
-2. **B2 — cross-sectional diversity** (build as B1's complement; orthogonalize-vs-VIX gate first).
-3. Physics #1 (TBD) — slot after physics branch lands.
-4. B3 / B4 as overlays/insurance only if a primary leaves alpha/tail on the table.
+## Combined build order (biology + physics)
+1. **P1 — Zumbach time-reversal vol overlay** (OVERALL TOP: a 2-param upgrade to our *validated*
+   `voltarget_spy`, orthogonal-to-VIX by construction, strongly corroborated, cheap to test).
+2. **B1 — foraging diffusion-exponent** (best *new-axis* idea: prices-only path-memory, novel, falsifiable).
+3. **P2 — multifractal log-vol forecaster** (second vol-forecast upgrade; adopt only if ΔSharpe≥0.05).
+4. **B2 — cross-sectional diversity** (build as B1's complement; orthogonalize-vs-VIX gate first).
+5. **P3 — Kuramoto phase-sync** (incremental-info test before backtest, per AR post-mortem).
+6. Overlays/insurance only if a primary leaves tail on the table: **P4 — Omori re-entry**, **B4 — avalanche σ**.
+7. Speculative / last: **B3 — Lotka-Volterra phase**, **P5 — fluctuation-theorem temperature**.
+
+**Why P1 first:** it modifies the one strategy that has already cleared our bar, so the marginal
+test is clean (does the Zumbach term beat plain `voltarget_spy`?), the mechanism is the most clearly
+beyond-VIX (signed-trend → vol), and the evidence base is the deepest. **Why B1 second:** highest-value
+*genuinely new axis* (path memory), uncorrelated with the vol-forecast cluster, so it diversifies the book.
 
 *Research artifact — not investment advice.*
