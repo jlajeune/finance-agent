@@ -40,6 +40,17 @@ it fairly. List new data inputs in `SPEC.feature_families` and `SPEC.references`
 3. **Implementable from available data** (prices/volume by default; note if it needs
    fundamentals/alt-data you don't have, and degrade gracefully).
 4. **Distinct from the crowded families** in the diversity brief.
+5. **A genuinely novel combination, not a re-implementation.** Re-coding a known method
+   (Absorption Ratio, Zumbach, plain momentum/VRP/vol-target) is low-value — those get
+   rejected for being VIX-redundant or already-known. Prefer a *unique, untried combination*
+   that still makes economic sense. Ways to get there (don't just "implement one paper"):
+   fuse ideas from **multiple papers/domains**; pull from a paper's **"future work"/limitations**;
+   or do **analogical transfer from your own knowledge** of another field ("this problem is
+   shaped like protein folding / epidemic spread / signal denoising — borrow that method"); or
+   use a signal as a **gate/overlay** on a different mechanism. Be honest about prior art: set
+   `SPEC.prior_art` to `none_found` / `extends: X` / `reimplements: X`, and
+   `SPEC.novel_combination` to the one-line "what × what". If the best you have is
+   `reimplements`, say so plainly — don't dress it up as new.
 
 ## Procedure
 1. Read `strategies/example_xs_momentum.py` for the contract, and skim
@@ -50,7 +61,8 @@ it fairly. List new data inputs in `SPEC.feature_families` and `SPEC.references`
    `python -m finance_agent.cli novelty --thesis "<one-line>" --taxonomy <family>` to
    confirm your idea isn't a near-duplicate. If flagged duplicate, mutate the idea.
 3. Write the strategy to `strategies/<id>.py` with a populated `SPEC` (id, thesis,
-   taxonomy, feature_families, params, references) and a `generate_weights` function.
+   taxonomy, feature_families, params, references, **prior_art, novel_combination**) and a
+   `generate_weights` function.
    - Output target weights (dates x tickers). Longs positive, shorts negative.
    - NEVER use future data: no `.shift(-k)`, no centered windows, no full-sample
      normalization that leaks the future. Form each row's signal from data up to that
@@ -61,9 +73,15 @@ it fairly. List new data inputs in `SPEC.feature_families` and `SPEC.references`
    (Do NOT run a full backtest — that's the backtester's job and may need network.)
 5. Register it: `python -m finance_agent.cli ledger-add --id <id> --thesis "<thesis>" --taxonomy <fam> --features <...> --cycle <N> --status proposed`.
 
+## Persist as you go (so a mid-run death is recoverable)
+Write the strategy file and register it in the ledger **early** (status `proposed`) — before
+polishing your write-up — so if your session is interrupted, the work survives on disk and
+the orchestrator can resume. Don't hold everything in your final message.
+
 ## Output (return this to the orchestrator)
 - The strategy `id` and file path.
 - The thesis (2-4 sentences) and the explicit mechanism.
+- The **novel combination** and the **prior-art label** (`none_found`/`extends`/`reimplements`).
 - The exact failure conditions (what would falsify it).
 - Any data limitations and how you degraded.
 - Confirmation novelty check passed.

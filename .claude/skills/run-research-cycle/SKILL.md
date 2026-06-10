@@ -18,10 +18,16 @@ enforce diversity, and manage the ledger.
 - Decide cycle size: default **4-6 parallel ideas**. More breadth = better search but
   more cost.
 
-## 1. Seed novelty (optional but recommended)
-Dispatch **lit-scout** to surface 3-6 externally-grounded seeds from recent literature
-and free datasets. This injects fresh angles so the cycle doesn't re-derive known
-factors. Hold its shortlist for assignment.
+## 1. Novelty synthesis (research → unique untried combinations)
+Dispatch **lit-scout**. Its job is not just to find recent research but to **recombine** it
+into *genuinely untried* ideas: "given this finding, what could we combine it with — in a
+unique way that hasn't been done — that still makes economic sense?" Keep ideation **as open
+as possible** (cross-domain pairings welcome) with one hard gate: **not a re-implementation
+of a known method**. Each seed must carry a **prior-art label** (`none_found` / `extends: X`
+/ `reimplements: X`) from an actual search. Prefer `none_found`/`extends`; treat `reimplements`
+seeds as baselines only. Re-coding famous methods (we've rejected Absorption Ratio, Zumbach,
+VRP for being known/VIX-redundant) is the failure mode this stage exists to prevent.
+Hold the ranked shortlist for assignment.
 
 ## 2. Assign diverse lenses
 - Run `python -m finance_agent.cli diversity --cycle N` to see crowded vs open families.
@@ -53,7 +59,9 @@ cost).
 ## 6. Report
 Dispatch **portfolio-reporter** to synthesize `reports/cycle_N_report.md`: the cycle
 map, validated strategies, current picks, what was learned, and seeds for the next
-cycle. Surface the report path and TL;DR to the user.
+cycle. Surface the report path and TL;DR to the user. **Fallback:** if the reporter
+dies mid-run (session limit), the main thread writes the report + records the run itself
+from the committed eval JSONs and ledger statuses — never leave the cycle half-closed.
 
 ## 7. Capture a durable run artifact (always)
 Record the cycle as a traceable, ID'd artifact so results are reviewable in GitHub:
@@ -70,9 +78,31 @@ This creates `runs/run-XXXX-<UTCstamp>/` (manifest + copied artifacts) and appen
 to `runs/INDEX.md`. The run id is both incrementing and datetime-based. Then **commit and
 push** `runs/`, `strategies/`, and `ledger/strategies.jsonl` so the cycle is captured.
 
+## Recoverability (assume any sub-agent or your own session can die mid-run)
+Sub-agents and the orchestrator both hit session limits in practice. Never keep cycle
+state only in memory or in an agent's pending final message. Instead:
+- **Persist + commit after every stage.** After generation, after backtests, after
+  vetting, after the report — `git add` the new artifacts and commit (short message). A
+  crash then costs at most one stage, and the branch always reflects real progress.
+- **Status lives in the ledger**, not your head: each strategy moves
+  `proposed → (rejected|validated)` as verdicts land. That row is the source of truth.
+- **Resume from disk.** To pick up an interrupted cycle, reconstruct state from committed
+  artifacts — no memory required:
+  - `python -m finance_agent.cli ledger-list` → which ids exist this cycle and their status.
+  - `ls reports/eval_*.json` → which strategies are already backtested.
+  - `ls runs/` + `runs/INDEX.md` → whether the run artifact was recorded.
+  Then run only the missing stages. The standardized harness is deterministic, so re-running
+  a stage reproduces the same numbers.
+- **Sub-agents persist as they go** (the quant-researcher writes the file + registers the
+  ledger row before writing its summary), so a dead generator still leaves a usable strategy.
+- **You (the orchestrator) can do any role's deterministic work yourself** if its agent dies
+  — run the eval CLI, write the report, call `record_run` — rather than blocking on a respawn.
+
 ## Guardrails
 - **No look-ahead, ever** — the engine enforces an execution lag, but reject any
   strategy whose code peeks forward.
+- **Novelty over re-implementation** — favor untried combinations; record each idea's
+  `prior_art` label, and don't let a re-coded known method pass as a new discovery.
 - **Honest accounting** — always carry `n_trials = K` into deflated Sharpe; never reset
   it to 1 to make a result look significant.
 - **Diversity check** — if two generators converged on near-identical theses (use
