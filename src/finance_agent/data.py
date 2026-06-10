@@ -97,6 +97,60 @@ DEFAULT_UNIVERSE: list[str] = [
     "SPY", "QQQ", "IWM", "TLT", "GLD", "HYG", "XLF", "XLK", "XLE", "XLV",
 ]
 
+# A liquid, diversified CROSS-ASSET ETF universe for risk-managed portfolio work
+# (Pivot B). Spans US/intl equity, the Treasury curve, credit, inflation, gold, and
+# broad commodities — distinct return drivers so risk-parity actually diversifies.
+# All have history back to ~2007 on yfinance.
+CROSS_ASSET_UNIVERSE: list[str] = [
+    "SPY",   # US large-cap equity
+    "QQQ",   # US growth/tech equity
+    "IWM",   # US small-cap equity
+    "EFA",   # developed ex-US equity
+    "EEM",   # emerging-market equity
+    "TLT",   # long Treasuries
+    "IEF",   # intermediate Treasuries
+    "LQD",   # investment-grade credit
+    "HYG",   # high-yield credit
+    "TIP",   # inflation-protected Treasuries
+    "GLD",   # gold
+    "DBC",   # broad commodities
+]
+
+
+def get_fred(series_ids, start: str = "2000-01-01", end: str | None = None,
+             use_cache: bool = True) -> pd.DataFrame:
+    """Fetch FRED macro series as a (dates x series) DataFrame — FREE, no API key.
+
+    Uses the public ``fredgraph.csv`` endpoint (e.g. DGS3MO 3-month T-bill, DGS10,
+    T10Y2Y, VIXCLS, BAMLH0A0HYM2 HY credit spread, UNRATE, CPIAUCSL). This is the
+    Tier-5 macro connector from research/pivots.md — the template for adding more data
+    sources look-ahead-safely (values are as-released daily series; align + ffill to your
+    trading grid, and beware macro release lags for point-in-time use).
+    """
+    if isinstance(series_ids, str):
+        series_ids = [series_ids]
+    end = end or pd.Timestamp.today().strftime("%Y-%m-%d")
+    out = {}
+    for sid in series_ids:
+        path = _cache_path(f"fred_{sid}_{start}_{end}")
+        if use_cache and path.exists():
+            out[sid] = pd.read_parquet(path)[sid]
+            continue
+        url = (f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}"
+               f"&cosd={start}&coed={end}")
+        df = pd.read_csv(url)
+        # FRED CSVs use the series id (or 'DATE'/'observation_date') as columns; '.' = NA.
+        date_col = df.columns[0]
+        val_col = df.columns[1]
+        s = pd.to_numeric(df[val_col].replace(".", float("nan")), errors="coerce")
+        s.index = pd.to_datetime(df[date_col])
+        s.name = sid
+        s = s.dropna()
+        if use_cache:
+            s.to_frame().to_parquet(path)
+        out[sid] = s
+    return pd.DataFrame(out).sort_index()
+
 
 def load_universe(name_or_list: str | Iterable[str] = "default") -> list[str]:
     """Resolve a universe spec into a concrete ticker list.
@@ -107,6 +161,8 @@ def load_universe(name_or_list: str | Iterable[str] = "default") -> list[str]:
     if isinstance(name_or_list, str):
         if name_or_list == "default":
             return list(DEFAULT_UNIVERSE)
+        if name_or_list == "cross_asset":
+            return list(CROSS_ASSET_UNIVERSE)
         p = Path(name_or_list)
         if p.exists():
             text = p.read_text()
