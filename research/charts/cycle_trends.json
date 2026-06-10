@@ -1,0 +1,91 @@
+{
+  "common_start": "2011-01-01",
+  "cost_bps": 5.0,
+  "buy_hold_spy": {
+    "sharpe": 0.8611137528761279,
+    "maxdd": -0.33717258279330076
+  },
+  "static_6040": {
+    "sharpe": 0.9778099070504841,
+    "maxdd": -0.2723529165934133
+  },
+  "strategies": [
+    {
+      "id": "lowvol_idio_beta_neutral",
+      "cycle": 1,
+      "status": "rejected",
+      "sharpe": -0.600079736887364,
+      "maxdd": -0.38927005971911366
+    },
+    {
+      "id": "xs_reversal_idio_5d",
+      "cycle": 1,
+      "status": "rejected",
+      "sharpe": -0.34672407078547735,
+      "maxdd": -0.472791755140649
+    },
+    {
+      "id": "voltarget_spy",
+      "cycle": 2,
+      "status": "validated",
+      "sharpe": 0.8518792186220567,
+      "maxdd": -0.19724016497934527
+    },
+    {
+      "id": "tom_tilt_spy",
+      "cycle": 3,
+      "status": "rejected",
+      "sharpe": 0.8604066211881051,
+      "maxdd": -0.30996375003649024
+    },
+    {
+      "id": "tsmom_barbell_etf",
+      "cycle": 3,
+      "status": "rejected",
+      "sharpe": 0.8478386200493189,
+      "maxdd": -0.23699381978064016
+    },
+    {
+      "id": "xasset_defensive_breadth",
+      "cycle": 3,
+      "status": "rejected",
+      "sharpe": 0.9136945683902772,
+      "maxdd": -0.24030069222837247
+    },
+    {
+      "id": "ivrv_monthly_timer",
+      "cycle": 4,
+      "status": "rejected",
+      "sharpe": 0.46465456957358586,
+      "maxdd": -0.3371728444752472
+    },
+    {
+      "id": "absorption_ratio_timer",
+      "cycle": 5,
+      "status": "rejected",
+      "sharpe": 0.5391928307333009,
+      "maxdd": -0.23009972628313713
+    },
+    {
+      "id": "zumbach_vol_overlay",
+      "cycle": 6,
+      "status": "rejected",
+      "sharpe": 0.9228126593091098,
+      "maxdd": -0.21530472220056107
+    },
+    {
+      "id": "diffusion_regime_timer",
+      "cycle": 7,
+      "status": "rejected",
+      "sharpe": 0.5914471913357542,
+      "maxdd": -0.17782612586028124
+    },
+    {
+      "id": "voltarget_pathmemory",
+      "cycle": 8,
+      "status": "proposed",
+      "sharpe": 0.8293116241947734,
+      "maxdd": -0.15461392575648758
+    }
+  ]
+}
