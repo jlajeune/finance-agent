@@ -155,14 +155,27 @@ def get_fred(series_ids, start: str = "2000-01-01", end: str | None = None,
 def load_universe(name_or_list: str | Iterable[str] = "default") -> list[str]:
     """Resolve a universe spec into a concrete ticker list.
 
-    Pass ``"default"`` for :data:`DEFAULT_UNIVERSE`, a path to a newline- or
-    comma-delimited file, or an explicit iterable of symbols.
+    Accepted specs:
+      - ``"default"`` -> :data:`DEFAULT_UNIVERSE` (today's survivor large-caps; NOT PIT).
+      - ``"cross_asset"`` -> :data:`CROSS_ASSET_UNIVERSE`.
+      - ``"sp500_pit@YYYY-MM-DD"`` -> the **point-in-time** S&P 500 membership *as-of* that
+        date (look-ahead-safe; includes names later removed). Use this for honest
+        cross-sectional factor tests — it removes the universe-selection survivorship bias.
+        Backed by :func:`finance_agent.universe.point_in_time_universe`. Note the residual
+        price-survivorship caveat documented there (yfinance lacks many delisted names);
+        intersect with names that actually have prices/fundamentals at the rebalance.
+      - a path to a newline-/comma-delimited file, or an explicit iterable of symbols.
     """
     if isinstance(name_or_list, str):
         if name_or_list == "default":
             return list(DEFAULT_UNIVERSE)
         if name_or_list == "cross_asset":
             return list(CROSS_ASSET_UNIVERSE)
+        if name_or_list.startswith("sp500_pit@"):
+            from .universe import point_in_time_universe
+
+            asof = name_or_list.split("@", 1)[1].strip()
+            return point_in_time_universe(asof)
         p = Path(name_or_list)
         if p.exists():
             text = p.read_text()
