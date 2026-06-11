@@ -13,3 +13,4 @@ report, and per-strategy evaluation JSON.
 | `run-0006-20260610T212239Z` | 6 | 1 | 0 | Model split: 2 Fable agents produced a ranked 10-idea cross-domain backlog (physics+biology); Opus built+self-vetted the top pick (Zumbach vol overlay). REJECTE |
 | `run-0007-20260610T213557Z` | 7 | 1 | 0 | B1 path-memory (DFA-Hurst) timer: rejected as standalone (over-de-risks) but the signal is the FIRST cross-domain input to pass the honest beyond-VIX test (t~2- |
 | `run-0008-20260610T222300Z` | 8 | 1 | 0 | First novelty-first build: path-memory H_z tilt x vol-target. Looked like a modest PASS but red-team REJECTED - noise, cost-fragile, and fails a persistence-mat |
+| `run-0009-20260611T030143Z` | 9 | 1 | 0 | First fundamentals sleeve (gross profitability, point-in-time on EDGAR): REJECTED - L/S dead, placebo p=0.51, long-only is survivorship. The PIT plumbing is val |

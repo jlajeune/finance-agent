@@ -1,0 +1,32 @@
+{
+  "run_id": "run-0009-20260611T030143Z",
+  "created_utc": "2026-06-11T03:01:43Z",
+  "cycle": 9,
+  "mode": "first fundamentals sleeve (Opus) on EDGAR PIT connector",
+  "idea_provenance": "data_catalog handoff: gross profitability (Novy-Marx) as a PIT equity sleeve",
+  "strategies": [
+    {
+      "id": "gross_profitability_ls",
+      "family": "quality",
+      "net_sharpe": -0.12,
+      "max_drawdown": -0.39,
+      "prior_art": "reimplements: Novy-Marx 2013",
+      "verdict": "REJECT",
+      "reason": "L/S factor dead (Sharpe -0.12, t=-0.52); filing-shuffle placebo p=0.51 (no value->name info); long-only 'strength' is survivorship (loses to equal-weight 1.18); look-ahead CLEAN. Blocker: survivor-biased ticker list, not the data."
+    }
+  ],
+  "survivors": 0,
+  "validated_infra": "EDGAR point-in-time connector + point_in_time_asof verified leak-free end-to-end",
+  "summary": "First fundamentals sleeve (gross profitability, point-in-time on EDGAR): REJECTED - L/S dead, placebo p=0.51, long-only is survivorship. The PIT plumbing is validated leak-free; the now-clear blocker is a survivor-biased universe -> need a point-in-time constituent list.",
+  "next_cycle_seeds": [
+    "BUILD point-in-time constituent universe (historical index membership + delistings) - now the #1 priority",
+    "re-test gross profitability / value / quality on a wide PIT universe",
+    "P2 multifractal log-vol; B2 cross-sectional diversity"
+  ],
+  "standing_recommendation": "voltarget_spy only validated strategy; risk-managed portfolio (drawdown control) is the usable product",
+  "artifacts": [
+    "cycle_9_report.md",
+    "gross_profitability_analysis.json",
+    "eval_gross_profitability_ls.json"
+  ]
+}

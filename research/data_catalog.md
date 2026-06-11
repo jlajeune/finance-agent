@@ -22,6 +22,8 @@ judged coarsely. High = worth building around; low = commoditized or weak-mechan
 | COT futures positioning | 5 | free (CFTC) | 1986+ | positioning/carry in futures | med | weekly, Tue→Fri release lag | 2 |
 
 ## Priorities (where to build the moat)
+> **Update (cycle 9):** the EDGAR *data* is point-in-time, but our *ticker list* is today's survivor large-caps — proven to be the binding constraint (the gross-profitability long-only leg's apparent edge was pure survivorship). **Build a point-in-time CONSTITUENT universe** (historical index membership + delistings; free-ish via Wikipedia change logs) BEFORE trusting any cross-sectional fundamental factor.
+
 1. **Point-in-time DB** — not alpha itself, but makes every cross-sectional backtest honest. Do first.
 2. **LLM-on-primary-text** — our AI-native edge; novel, low crowding. Build the extraction pipeline.
 3. **Options / dealer positioning** — strong mechanisms, real cleaning craft, semi-accessible.
