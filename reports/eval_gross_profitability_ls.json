@@ -1,0 +1,111 @@
+{
+  "id": "gross_profitability_ls",
+  "thesis": "Point-in-time gross profitability (Novy-Marx 2013): GP/Assets = (Revenues - CostOfRevenue) / Assets, every input pulled as-of its SEC filing date via the EDGAR point_in_time_asof guard (no period-end look-ahead). Cross-sectionally rank the ~30 single-name large-caps monthly, go long the top tercile and short the bottom tercile, dollar-neutral and equal-weight, gross_leverage=1.0. Gross profitability is the cleanest above-the-line quality measure; profitable firms keep earning and the market is slow to price persistent gross margin. Used here as an honest equity SLEEVE for the risk-managed portfolio, not a novelty claim. Quarterly fundamentals -> low turnover.",
+  "taxonomy": [
+    "quality"
+  ],
+  "feature_families": [
+    "price",
+    "fundamentals"
+  ],
+  "universe": "default",
+  "params": {
+    "quantile": 0.33,
+    "rebalance": 21,
+    "filed_lag_days": 0,
+    "min_names": 6
+  },
+  "gross_leverage": 1.0,
+  "headline": {
+    "ann_return": -0.010412907005393324,
+    "ann_vol": 0.06916842837068178,
+    "sharpe": -0.11674614639240002,
+    "sortino": -0.11606981591553907,
+    "max_drawdown": -0.38612211454300194,
+    "calmar": -0.026967911479811528,
+    "hit_rate": 0.496129656507015,
+    "t_stat": -0.47285449283506203,
+    "n_obs": 4134,
+    "avg_turnover": 0.024357534499043935,
+    "gross_sharpe": -0.07239283410326586,
+    "cost_drag_ann": 0.0030430236945455658
+  },
+  "oos": {
+    "split_at": "2019-11-08",
+    "in_sample": {
+      "ann_return": -0.03168777085225816,
+      "ann_vol": 0.06679577719691908,
+      "sharpe": -0.448630472347761,
+      "sortino": -0.43780657038595716,
+      "max_drawdown": -0.3289992284788559,
+      "calmar": -0.09631563878969603,
+      "hit_rate": 0.48508064516129035,
+      "t_stat": -1.4073896046010572,
+      "n_obs": 2480
+    },
+    "out_of_sample": {
+      "ann_return": 0.022365590069849395,
+      "ann_vol": 0.07255226004815578,
+      "sharpe": 0.34111725067008447,
+      "sortino": 0.3470346913720934,
+      "max_drawdown": -0.1169967666351982,
+      "calmar": 0.19116417242184502,
+      "hit_rate": 0.5126964933494559,
+      "t_stat": 0.873918966625957,
+      "n_obs": 1654
+    },
+    "sharpe_decay": -0.7897477230178455
+  },
+  "subsample": {
+    "sub_sharpes": [
+      -0.5812751886301217,
+      -0.06344950381877505,
+      -0.320904383933908,
+      0.5219055186431049
+    ],
+    "mean_sharpe": -0.11093088943492499,
+    "std_sharpe": 0.47189300678108076,
+    "fraction_positive": 0.25
+  },
+  "cost_sensitivity": {
+    "sharpe": {
+      "0": -0.07239283410326586,
+      "5": -0.11674614639240002,
+      "10": -0.16104477728038083,
+      "20": -0.24936854002871336,
+      "40": -0.4241740744420674
+    },
+    "ann_return": {
+      "0": -0.007369883310847758,
+      "5": -0.010412907005393324,
+      "10": -0.01344762012014844,
+      "20": -0.019492194711774102,
+      "40": -0.031482495697129464
+    }
+  },
+  "deflated_sharpe": {
+    "per_obs_sharpe": -0.007354315949510261,
+    "n_trials": 1,
+    "n_obs": 4134,
+    "deflated_sharpe_prob": 0.31815038620444036,
+    "passes": false
+  },
+  "latest_weights": {
+    "AAPL": 0.0625,
+    "ABBV": -0.0625,
+    "AVGO": -0.0625,
+    "COST": 0.0625,
+    "CSCO": 0.0625,
+    "CVX": -0.0625,
+    "HD": 0.0625,
+    "JNJ": -0.0625,
+    "KO": -0.0625,
+    "MRK": -0.0625,
+    "MSFT": 0.0625,
+    "NVDA": 0.0625,
+    "PFE": -0.0625,
+    "PG": 0.0625,
+    "TSLA": -0.0625,
+    "WMT": 0.0625
+  }
+}
