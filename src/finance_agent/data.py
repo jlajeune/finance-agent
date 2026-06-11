@@ -41,6 +41,7 @@ def get_prices(
     field: str = "Close",
     auto_adjust: bool = True,
     use_cache: bool = True,
+    chunk_size: int = 120,
 ) -> pd.DataFrame:
     """Return a (dates x tickers) DataFrame of one OHLCV field.
 
@@ -51,6 +52,9 @@ def get_prices(
     field : one of Open/High/Low/Close/Volume. With ``auto_adjust=True`` the
         Close field is split/dividend adjusted (the right default for backtests).
     use_cache : read/write the parquet cache.
+    chunk_size : wide universes (e.g. the point-in-time S&P 500) are fetched in
+        chunks of this size and concatenated — robust to per-name failures and
+        avoids one giant download. Each chunk caches under its own key.
     """
     tickers = sorted(set(tickers))
     end = end or pd.Timestamp.today().strftime("%Y-%m-%d")
@@ -59,6 +63,25 @@ def get_prices(
 
     if use_cache and path.exists():
         return pd.read_parquet(path)
+
+    # Wide universes: fetch in chunks, tolerate per-chunk failures, concat, then cache.
+    if len(tickers) > chunk_size:
+        parts = []
+        for i in range(0, len(tickers), chunk_size):
+            try:
+                part = get_prices(tickers[i:i + chunk_size], start=start, end=end,
+                                  field=field, auto_adjust=auto_adjust, use_cache=use_cache)
+                if part is not None and not part.empty:
+                    parts.append(part)
+            except Exception:  # noqa: BLE001 - one bad chunk shouldn't kill the universe
+                continue
+        if not parts:
+            return pd.DataFrame()
+        df = pd.concat(parts, axis=1)
+        df = df.loc[:, ~df.columns.duplicated()].sort_index().dropna(how="all")
+        if use_cache and not df.empty:
+            df.to_parquet(path)
+        return df
 
     import yfinance as yf  # imported lazily so the package imports without network
 
@@ -177,6 +200,14 @@ def load_universe(name_or_list: str | Iterable[str] = "default") -> list[str]:
             return list(DEFAULT_UNIVERSE)
         if name_or_list == "cross_asset":
             return list(CROSS_ASSET_UNIVERSE)
+        if name_or_list == "sp500_pit_union":
+            # The full union of all historical S&P 500 constituents (wide PIT panel).
+            # A PIT cross-sectional strategy declares this so the standard runner fetches
+            # the wide price panel; the strategy still gates to point_in_time_universe(t)
+            # ∩ priced ∩ fundamentals-covered at each rebalance internally.
+            from .universe import all_historical_constituents
+
+            return all_historical_constituents()
         if name_or_list.startswith("sp500_pit@"):
             from .universe import point_in_time_universe
 
