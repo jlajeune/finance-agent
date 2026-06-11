@@ -52,33 +52,44 @@ A new fresh-context agent is dispatched per role; several run in parallel.
 
 | Sub-agent | Role | Key tools | Output |
 |---|---|---|---|
-| **lit-scout** | Scout recent literature & free datasets to seed novel angles | WebSearch, WebFetch | ranked strategy seeds + sources |
-| **quant-researcher** | Generate ONE novel, falsifiable hypothesis and implement it | Read/Write/Edit/Bash | `strategies/<id>.py` + thesis + falsification conditions |
+| **lit-scout** | Recombine recent research into *untried* ideas (multi-paper fusion, "future work", analogical transfer); prior-art label each | WebSearch, WebFetch | ranked novel seeds + sources + prior-art |
+| **quant-researcher** | Implement ONE novel, falsifiable strategy (with `prior_art`/`novel_combination`) | Read/Write/Edit/Bash | `strategies/<id>.py` + thesis + falsification |
 | **backtester** | Run the standardized eval battery; report facts, flag leaks | Bash/Read/Write | `reports/eval_<id>.json` + honest summary |
-| **red-team-quant** | Adversarially try to break the strategy, then sharpen survivors | Bash/Read/Edit/WebSearch | REJECT / REVISE / PASS + evidence |
+| **red-team-quant** | Break the strategy: look-ahead, overfit, cost, **placebo / signal-specificity**, difference-vs-incumbent significance | Bash/Read/Edit/WebSearch | REJECT / REVISE / PASS + evidence |
 | **portfolio-reporter** | Synthesize the cycle into a decision-ready memo + current picks | Read/Write/Bash | `reports/cycle_N_report.md` |
+| **data-engineer** | Add & look-ahead-proof new data sources; maintain the data catalog + moat rubric (Pivot A) | Read/Write/Edit/Bash/WebSearch | new connector + catalog entry + sleeve ideas |
+| **portfolio-constructor** | Assemble a risk-managed multi-asset portfolio from validated sleeves; benchmark honestly (Pivot B) | Read/Write/Edit/Bash | portfolio + stats vs 60/40/RP/SPY + chart |
 
 Why sub-agents (not one mega-prompt): each gets a clean context and a single mandate,
 they can run **in parallel** (true breadth), and the **adversarial separation** is real
 — the red-team has no stake in the idea it's attacking.
 
-### 3. Reference skills (in `.claude/skills/`)
-Loaded on demand by whichever agent needs them — shared knowledge, not roles:
-- **backtest-harness** — the strategy contract, CLI commands, how to read metrics, and
-  how to *extend* the harness with new data/scripts.
-- **strategy-ledger** — how the novelty memory works and how to keep the diversity-vs-
-  freedom balance right.
+### 3. Skills (in `.claude/skills/`)
+Three *orchestration* skills (the main thread runs one to drive a workflow) + two reference
+skills (shared knowledge, loaded on demand):
+- **run-research-cycle** — alpha-discovery orchestrator (research → generate → backtest →
+  red-team → report), with novelty-first ideation and mid-run recoverability baked in.
+- **build-risk-managed-portfolio** — assemble & honestly benchmark a risk-managed portfolio (Pivot B).
+- **add-data-source** — add a look-ahead-safe data connector + catalog it with a moat score (Pivot A).
+- **backtest-harness** (reference) — the strategy contract, CLI, metrics, how to extend.
+- **strategy-ledger** (reference) — the novelty memory + diversity-vs-freedom balance.
 
 ### 4. The Python harness (`src/finance_agent/`) — the shared yardstick
 Small and readable so agents can audit and extend every line. It is the part that must
 stay identical across strategies so results are **comparable**:
-- `data.py` — fetch/cache prices (yfinance default); look-ahead-safe API; default universe.
-- `strategy.py` — the `StrategySpec` + `generate_weights` contract and the `TAXONOMY`.
+- `data.py` — fetch/cache prices (yfinance); default + **cross-asset** universes; free
+  **`get_fred`** macro connector; look-ahead-safe API. (`edgar.py` — point-in-time EDGAR
+  fundamentals.)
+- `strategy.py` — the `StrategySpec` (incl. `gross_leverage`, `prior_art`,
+  `novel_combination`) + `generate_weights` contract and the `TAXONOMY`.
 - `backtest.py` — vectorized weights→P&L engine; **execution lag** kills look-ahead,
   **turnover costs** kill free churn.
 - `metrics.py` — Sharpe/Sortino/drawdown/Calmar/turnover/t-stat/**deflated Sharpe**.
 - `validation.py` — OOS split, walk-forward, parameter & cost sensitivity, subsample
-  stability, deflated-Sharpe report. This is the red-team's arsenal.
+  stability, deflated-Sharpe report. Part of the red-team's arsenal.
+- `portfolio.py` — risk parity / inverse-vol allocation, portfolio-level vol-targeting,
+  **`combine_sleeves`** (blend validated strategies by risk), honest benchmark eval (Pivot B).
+- `runlog.py` — record each cycle as a durable `runs/run-XXXX-<UTC>/` artifact + `INDEX.md`.
 - `runner.py` / `cli.py` — load a strategy and run the full battery in one command.
 
 ### 5. The ledger (`ledger/strategies.jsonl`) — novelty memory
@@ -110,6 +121,40 @@ Across cycles, the ledger grows, so the system keeps pushing into unexplored reg
 
 ---
 
+## Three modes
+The same harness + agents support three workflows:
+1. **Alpha discovery** (`run-research-cycle`) — the cycle above; find & vet new strategies.
+2. **Risk-managed portfolio** (`build-risk-managed-portfolio` + `portfolio-constructor`) —
+   combine *validated* strategies ("sleeves", `status: validated` in the ledger) with a
+   cross-asset allocation into a drawdown-controlled portfolio, benchmarked honestly vs
+   60/40 / risk parity / SPY. The product is risk control, not a single signal.
+3. **Data-moat expansion** (`add-data-source` + `data-engineer`) — widen the data layer
+   toward less-crowded, higher-mechanism sources (point-in-time fundamentals, LLM-on-text,
+   options), each look-ahead-safe and scored in `research/data_catalog.md`.
+
+## Research disciplines that make verdicts trustworthy
+- **Novelty-first:** prefer *untried combinations* over re-implementing known methods; every
+  idea carries a `prior_art` label (`none_found` / `extends` / `reimplements`).
+- **Beat the right baseline:** a strategy must beat its honest benchmark (incumbent / 60-40 /
+  a plain VIX timer), not just "go up".
+- **Placebo / signal-specificity:** for any "signal gates a base", a persistence-matched
+  *random* surrogate of the same turnover must NOT match it — else the edge is the turnover,
+  not the signal. (A statistically beyond-VIX signal is not automatically tradable.)
+- **Honest statistics:** deflated Sharpe for multiple testing; non-overlapping / Newey-West
+  standard errors; test the *difference* vs the incumbent, not the absolute Sharpe.
+- **Recoverability:** commit after every stage; status lives in the ledger; resume from disk
+  (`ledger-list` / `reports/eval_*.json` / `runs/`); the orchestrator can do any dead agent's
+  deterministic work itself.
+
+## What 8 cycles actually showed (honest)
+**One** validated strategy (`voltarget_spy`); everything else correctly rejected — several on
+the placebo/beyond-baseline bar (Absorption Ratio, Zumbach, the path-memory overlay). The
+repeatable edge on accessible data is **risk control / drawdown reduction, not directional
+alpha**. `research/progress.md` charts it; `research/pivots.md` lays out where real usefulness
+lives (better/rarer data, risk-managed portfolios, strategy due-diligence).
+
+---
+
 ## The two design tensions, and how each is resolved
 
 **Novelty vs. over-constraining.** Diversity is steered at the *coarse* taxonomy level
@@ -126,14 +171,17 @@ back to rigor is the `generate_weights` contract.
 ---
 
 ## Extending the system
-- **New data source / API** → add a fetcher in `data.py` (or a new module), cache under
-  `data/cache`, keep it look-ahead-safe, document any API key/env var, and list it in
-  the strategy's `SPEC.feature_families`.
-- **New factor family** → add it to `TAXONOMY` in `strategy.py`; the ledger and
-  diversity brief pick it up automatically.
+- **New data source / API** → use the `add-data-source` skill / `data-engineer` agent: add a
+  fetcher in `data.py` (or a submodule like `edgar.py`) following the `get_fred` template,
+  cache under `data/cache`, keep it **point-in-time / look-ahead-safe** (index by availability
+  date), document any key/env var, and catalog it with a moat score in `data_catalog.md`.
+- **New factor family** → add it to `TAXONOMY` in `strategy.py`; the ledger and diversity
+  brief pick it up automatically.
 - **New robustness test** → add to `validation.py`; wire into the red-team's checklist.
-- **New role** → add a sub-agent in `.claude/agents/` and a dispatch step in
-  `run-research-cycle`.
+- **New portfolio construction** → add to `portfolio.py`; combine validated sleeves via
+  `combine_sleeves`; benchmark with `evaluate_portfolio`.
+- **New role** → add a sub-agent in `.claude/agents/` and a dispatch step in the relevant
+  orchestration skill.
 
 ---
 
