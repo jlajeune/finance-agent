@@ -1,0 +1,30 @@
+{
+  "run_id": "run-0010-20260611T142804Z",
+  "created_utc": "2026-06-11T14:28:04Z",
+  "cycle": 10,
+  "mode": "PIT gross-profitability re-test (Opus agent + orchestrator-finished eval)",
+  "idea_provenance": "phase-3 payoff: re-run cycle 9 on the point-in-time S&P500 universe",
+  "strategies": [
+    {
+      "id": "gross_profitability_pit",
+      "family": "quality",
+      "net_sharpe": 0.01,
+      "prior_art": "reimplements: Novy-Marx 2013 (PIT universe)",
+      "verdict": "REJECT",
+      "reason": "L/S dead (Sharpe 0.01, t=0.04); long-only collapses 1.12->0.85 once losers included, now == equal-weight 0.838 == SPY 0.856 -> cycle-9 long-leg strength CONFIRMED survivorship; no GP premium. ~40% members dropped/period (residual data gap)."
+    }
+  ],
+  "survivors": 0,
+  "validated_infra": "point_in_time_asof \u2229 point_in_time_universe composed cleanly on 710 names; PIT plumbing validated end-to-end",
+  "summary": "Honest re-run of cycle 9 on a point-in-time universe: SURVIVORSHIP CONFIRMED. GP long-only falls 1.12->0.85 (=equal-weight=SPY) once losers are included; L/S dead (0.01). The data moat converted a flattered 'yes' into an honest 'no'. Caveat: ~40% of members dropped/period for missing price/EDGAR data.",
+  "next_cycle_seeds": [
+    "paid delisting-complete prices (CRSP/Sharadar) to cut the 40% drop",
+    "other PIT factors (value/quality) on the wide universe",
+    "LLM-on-primary-text moat (Tier 4)"
+  ],
+  "standing_recommendation": "voltarget_spy only validated; risk-managed portfolio (drawdown control) is the usable product",
+  "artifacts": [
+    "cycle_10_report.md",
+    "gross_profitability_pit_analysis.json"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "start": "2010-01-01",
+  "cost_bps": 5,
+  "results": {
+    "GP_long_short": {
+      "sharpe": 0.012253741763645899,
+      "ann_return": -7.368987436251473e-05,
+      "max_drawdown": -0.0998203645928265,
+      "monthly_t": 0.041108356283931426
+    },
+    "GP_long_only_tercile": {
+      "sharpe": 0.8499054439895806,
+      "ann_return": 0.1444151411996215,
+      "max_drawdown": -0.36434897151620493,
+      "monthly_t": 3.8276656697852705
+    },
+    "equal_weight_PIT": {
+      "sharpe": 0.8379295677209951,
+      "ann_return": 0.14364607073594882,
+      "max_drawdown": -0.3774917963684066,
+      "monthly_t": 3.793615001636784
+    },
+    "SPY": {
+      "sharpe": 0.8558943761052555,
+      "ann_return": 0.14096229306763974,
+      "max_drawdown": -0.3371725827933012,
+      "monthly_t": NaN
+    }
+  },
+  "diagnostics": {
+    "avg_members_per_period": 408.9019607843137,
+    "avg_usable_per_period": 246.94117647058823,
+    "avg_dropped_per_period": 161.9607843137255,
+    "priced_names": 710
+  },
+  "cycle9_contrast": {
+    "gp_ls_sharpe": -0.12,
+    "gp_long_only_sharpe": 1.12,
+    "equal_weight_sharpe": 1.18
+  }
+}
