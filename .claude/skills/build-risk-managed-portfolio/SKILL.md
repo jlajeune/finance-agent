@@ -30,3 +30,8 @@ diversification reliably reduce drawdown**. This skill turns that into the produ
 - **Drawdown control is a legitimate deliverable.** "Far smaller drawdowns at lower Sharpe" is
   an honest, sellable outcome — state it plainly rather than torturing the data.
 - **Look-ahead-safe & net of costs** throughout. Not investment advice.
+
+## Record a process retrospective
+After the work, log how the agents/skills/harness performed (not the result itself) via
+`finance_agent.runlog.record_retro(cycle=..., what=..., worked=..., friction=..., suggestion=...)`
+→ appends to `research/process_retro.md`. Records for later review; does not auto-apply changes.

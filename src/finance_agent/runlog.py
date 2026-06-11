@@ -87,3 +87,38 @@ def _append_index(manifest: dict) -> None:
     row = f"| `{manifest['run_id']}` | {manifest.get('cycle','')} | {len(strats)} | {survived} | {summary} |\n"
     with INDEX.open("a") as f:
         f.write(row)
+
+
+# --------------------------------------------------------------------------- #
+# Process retrospective — record what worked / didn't about the PROCESS itself
+# (agents, skills, harness), so definition/harness updates can be reviewed later.
+# This records; it does NOT auto-apply changes. See research/process_retro.md.
+# --------------------------------------------------------------------------- #
+RETRO_PATH = Path("research/process_retro.md")
+
+
+def record_retro(cycle, what: str = "", worked: str = "", friction: str = "",
+                 suggestion: str = "", applied: str = "",
+                 path: Path | str = RETRO_PATH) -> None:
+    """Append a per-cycle PROCESS retrospective entry (about agents/skills/harness,
+    not strategy P&L). Fields are short free text; any may be empty.
+
+    - worked     ✅ which agent/skill/harness elements performed well
+    - friction   ⚠️/🐞 what was clunky, broke, or wasted effort
+    - suggestion 💡 a concrete (UNAPPLIED) definition/harness change to consider later
+    - applied    🔧 any process fix actually made this cycle
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [f"- **Cycle {cycle} ({what}):**"]
+    if worked:
+        lines.append(f"  - ✅ worked: {worked}")
+    if friction:
+        lines.append(f"  - ⚠️ friction / 🐞 bug: {friction}")
+    if suggestion:
+        lines.append(f"  - 💡 suggestion (unapplied): {suggestion}")
+    if applied:
+        lines.append(f"  - 🔧 applied this cycle: {applied}")
+    entry = "\n".join(lines) + "\n"
+    with path.open("a") as f:
+        f.write(entry)

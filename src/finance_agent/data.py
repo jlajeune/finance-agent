@@ -25,6 +25,12 @@ CACHE_DIR = Path(os.environ.get("FINANCE_AGENT_CACHE", "data/cache"))
 def _cache_path(key: str) -> Path:
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     safe = key.replace("/", "_").replace(":", "_")
+    # Long keys (e.g. a wide universe's joined ticker list) blow past the filesystem's
+    # 255-char filename limit — hash the tail so large universes still cache.
+    if len(safe) > 180:
+        import hashlib
+
+        safe = safe[:80] + "_" + hashlib.md5(key.encode()).hexdigest()[:16]
     return CACHE_DIR / f"{safe}.parquet"
 
 

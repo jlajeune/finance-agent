@@ -78,6 +78,22 @@ This creates `runs/run-XXXX-<UTCstamp>/` (manifest + copied artifacts) and appen
 to `runs/INDEX.md`. The run id is both incrementing and datetime-based. Then **commit and
 push** `runs/`, `strategies/`, and `ledger/strategies.jsonl` so the cycle is captured.
 
+## 8. Process retrospective (always) — record what worked/didn't about the PROCESS
+Separate from strategy P&L, record how the **agents, skills, and harness themselves**
+performed this cycle, so definition/harness updates can be reviewed later. This **records;
+it does not auto-apply changes** (the user reviews them).
+```python
+from finance_agent.runlog import record_retro
+record_retro(cycle=N, what="one-line what the cycle was",
+    worked="which agent/skill/harness elements performed well",
+    friction="what was clunky, broke, or wasted effort (incl. harness bugs hit)",
+    suggestion="a concrete UNAPPLIED definition/harness change to consider",
+    applied="any process fix actually made this cycle")
+```
+Appends to `research/process_retro.md`. Be honest and specific: a recurring friction point
+or a harness bug surfaced here is exactly the signal worth acting on next time. Commit it
+with the run artifact.
+
 ## Recoverability (assume any sub-agent or your own session can die mid-run)
 Sub-agents and the orchestrator both hit session limits in practice. Never keep cycle
 state only in memory or in an agent's pending final message. Instead:
