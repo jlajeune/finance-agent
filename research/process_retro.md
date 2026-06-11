@@ -62,3 +62,8 @@ Tags: `worked` ✅ · `friction` ⚠️ · `bug` 🐞 · `suggestion` 💡 (unap
   - 💡 suggestion (unapplied): <concrete agent/skill/harness change to consider>
   - 🔧 applied this cycle: <any process fix actually made>
 ```
+- **Cycle 10 (gross profitability on the point-in-time S&P500 universe (honest re-run of cycle 9)):**
+  - ✅ worked: EDGAR PIT + PIT constituent universe composed cleanly (point_in_time_asof ∩ point_in_time_universe) on 710 names and produced a trustworthy, decisive result; background-bash for the heavy ~710-name fetch was fully recoverable after the agent hit a session limit (orchestrator finished it)
+  - ⚠️ friction / 🐞 bug: standardized `evaluate`/runner can't score a strategy that builds its OWN wide universe (it only loads SPEC.universe=default 30 names) -> needed a bespoke eval script; ~40% of PIT members dropped/period for missing price/EDGAR data (residual price-survivorship)
+  - 💡 suggestion (unapplied): add a first-class wide/PIT-universe path to the runner (e.g. SPEC.universe='sp500_pit' resolved to the union price panel) so such strategies run through the standard battery + deflated-Sharpe; evaluate a paid delisting-complete price source to cut the 40% drop
+  - 🔧 applied this cycle: fixed data._cache_path to hash long cache keys (wide universes blew past the 255-char filename limit)

@@ -14,3 +14,4 @@ report, and per-strategy evaluation JSON.
 | `run-0007-20260610T213557Z` | 7 | 1 | 0 | B1 path-memory (DFA-Hurst) timer: rejected as standalone (over-de-risks) but the signal is the FIRST cross-domain input to pass the honest beyond-VIX test (t~2- |
 | `run-0008-20260610T222300Z` | 8 | 1 | 0 | First novelty-first build: path-memory H_z tilt x vol-target. Looked like a modest PASS but red-team REJECTED - noise, cost-fragile, and fails a persistence-mat |
 | `run-0009-20260611T030143Z` | 9 | 1 | 0 | First fundamentals sleeve (gross profitability, point-in-time on EDGAR): REJECTED - L/S dead, placebo p=0.51, long-only is survivorship. The PIT plumbing is val |
+| `run-0010-20260611T142804Z` | 10 | 1 | 0 | Honest re-run of cycle 9 on a point-in-time universe: SURVIVORSHIP CONFIRMED. GP long-only falls 1.12->0.85 (=equal-weight=SPY) once losers are included; L/S de |
