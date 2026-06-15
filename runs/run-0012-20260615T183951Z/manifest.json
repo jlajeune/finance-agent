@@ -1,0 +1,29 @@
+{
+  "run_id": "run-0012-20260615T183951Z",
+  "created_utc": "2026-06-15T18:39:51Z",
+  "cycle": 12,
+  "mode": "multi-factor composite PIT sleeve (Opus)",
+  "idea_provenance": "cycle-11 insight: combine signal-specific-but-weak factors",
+  "strategies": [
+    {
+      "id": "composite_multifactor_pit",
+      "family": "quality/value",
+      "net_sharpe": -0.22,
+      "prior_art": "reimplements: multi-factor compositing",
+      "verdict": "REJECT",
+      "reason": "composite L/S -0.22 (t=-1.00) is WORSE than its best single factor (value 0.23); only value carries signal, the other 3 legs (quality/lowvol/momentum) are flat-to-negative on free large-cap PIT, so equal-weighting dilutes not diversifies. Placebo p=0.11 (not signal-specific). Closes the free-data equity-factor avenue."
+    }
+  ],
+  "survivors": 0,
+  "summary": "Multi-factor composite (value+quality+lowvol+momentum) on the honest universe: REJECTED - combining made it worse (L/S -0.22) because only value has signal. Across cycles 9-12, free large-cap PIT equity factors produce no tradable edge alone or combined - now a trustworthy (not survivorship-illusion) conclusion. Frontier: the untested text moat, paid breadth data, or the risk-managed portfolio.",
+  "next_cycle_seeds": [
+    "TEST A TEXT FACTOR using the built edgar_text.py moat (risk-factor YoY change / tone) - the untested, less-crowded frontier",
+    "paid breadth/small-cap + delisting-complete data",
+    "consolidate the risk-managed portfolio as the validated product"
+  ],
+  "standing_recommendation": "voltarget_spy only validated standalone; risk-managed portfolio is the usable product; free-data equity factors exhausted",
+  "artifacts": [
+    "cycle_12_report.md",
+    "composite_multifactor_pit_analysis.json"
+  ]
+}

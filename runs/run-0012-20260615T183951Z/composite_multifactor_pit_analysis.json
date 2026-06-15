@@ -1,0 +1,123 @@
+{
+  "start": "2010-01-01",
+  "cost_bps": 5.0,
+  "factors": [
+    "value",
+    "quality",
+    "lowvol",
+    "momentum"
+  ],
+  "results": {
+    "COMPOSITE_long_short": {
+      "sharpe": -0.22113098622239685,
+      "ann_return": -0.019320700079851538,
+      "vol": 0.07533708055970945,
+      "max_drawdown": -0.3161112022983087,
+      "monthly_t": -0.9981385749655453,
+      "n_months": 198,
+      "avg_turnover": 0.015427186169535532
+    },
+    "COMPOSITE_long_only_tercile": {
+      "sharpe": 0.8430475267037989,
+      "ann_return": 0.13001011164305365,
+      "vol": 0.1603280497683301,
+      "max_drawdown": -0.35462479803321756,
+      "monthly_t": 4.0496641837876455,
+      "n_months": 198,
+      "avg_turnover": 0.016812423935425674
+    },
+    "equal_weight_PIT": {
+      "sharpe": 0.8208286823364042,
+      "ann_return": 0.14173792783126693,
+      "vol": 0.18171210452182437,
+      "max_drawdown": -0.3995368032577121,
+      "monthly_t": 3.757137638804689,
+      "n_months": 198
+    },
+    "SPY": {
+      "sharpe": 0.8633958650566452,
+      "ann_return": 0.14243709479794942,
+      "vol": 0.1713093949862493,
+      "max_drawdown": -0.33717276298387244,
+      "monthly_t": NaN
+    },
+    "COMPOSITE_long_only_minus_EW": {
+      "ann_return_diff": -0.01172781618821328,
+      "monthly_t": -0.925338972781797,
+      "sharpe": -0.20051471139065358
+    }
+  },
+  "diversification_test": {
+    "composite_sharpe": -0.22113098622239685,
+    "composite_monthly_t": -0.9981385749655453,
+    "individual": {
+      "value": {
+        "sharpe": 0.22641922916691154,
+        "ann_return": 0.007397066463808111,
+        "vol": 0.03529934087785132,
+        "max_drawdown": -0.10863199523595835,
+        "monthly_t": 0.9498480057454375,
+        "n_months": 198
+      },
+      "quality": {
+        "sharpe": -0.02582631624869527,
+        "ann_return": -0.001753207391555378,
+        "vol": 0.038780352218798816,
+        "max_drawdown": -0.114352454860977,
+        "monthly_t": -0.14083913329687878,
+        "n_months": 198
+      },
+      "lowvol": {
+        "sharpe": -0.4000680968208488,
+        "ann_return": -0.035753839200035165,
+        "vol": 0.08248414382470026,
+        "max_drawdown": -0.4652085961708836,
+        "monthly_t": -1.7429438414302543,
+        "n_months": 198
+      },
+      "momentum": {
+        "sharpe": -0.05937477412197188,
+        "ann_return": -0.006704542167556782,
+        "vol": 0.07084238854770539,
+        "max_drawdown": -0.26764435477553306,
+        "monthly_t": -0.33263248580896443,
+        "n_months": 198
+      }
+    },
+    "best_single_factor_by_sharpe": {
+      "name": "value",
+      "sharpe": 0.22641922916691154,
+      "monthly_t": 0.9498480057454375
+    },
+    "best_single_factor_by_t": {
+      "name": "lowvol",
+      "sharpe": -0.4000680968208488,
+      "monthly_t": -1.7429438414302543
+    },
+    "composite_beats_best_sharpe": false,
+    "composite_beats_best_t": false
+  },
+  "placebo": {
+    "n_seeds": 200,
+    "real_ls_sharpe": -0.22113098622239685,
+    "placebo_mean_sharpe": -0.49423297414731254,
+    "placebo_std_sharpe": 0.2289088977778025,
+    "placebo_p5": -0.8436071076382872,
+    "placebo_p95": -0.06937006479637224,
+    "real_percentile": 0.89,
+    "p_value_one_sided": 0.11
+  },
+  "diagnostics": {
+    "avg_members_per_period": 407.1707317073171,
+    "avg_usable_per_period": 393.50243902439024,
+    "avg_dropped_per_period": 13.668292682926829,
+    "frac_dropped": 0.04208671287605503,
+    "priced_names": 707,
+    "names_with_TTM": 678,
+    "names_with_equity": 679
+  },
+  "cycle11_contrast_value_earnings_yield": {
+    "ey_long_only_minus_EW_monthly_t": 1.45,
+    "note": "value placebo-clean but sub-threshold ALONE; composite must beat best single"
+  }
+}
