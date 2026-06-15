@@ -1,0 +1,75 @@
+{
+  "start": "2010-01-01",
+  "cost_bps": 5.0,
+  "results": {
+    "EY_long_short": {
+      "sharpe": 0.22641922916691154,
+      "ann_return": 0.007397066463808111,
+      "vol": 0.03529934087785132,
+      "max_drawdown": -0.10863199523595835,
+      "monthly_t": 0.9498480057454375,
+      "avg_turnover": 0.007044392004669201
+    },
+    "EY_long_only_tercile": {
+      "sharpe": 0.8272633430304999,
+      "ann_return": 0.15197968671230733,
+      "vol": 0.19387007450567728,
+      "max_drawdown": -0.4455474171433469,
+      "monthly_t": 3.7276468156513634,
+      "avg_turnover": 0.0066310340452320465
+    },
+    "EY_short_only_bottom_tercile": {
+      "sharpe": 0.7456857843682246,
+      "ann_return": 0.13220130367655392,
+      "vol": 0.19112253021640224,
+      "max_drawdown": -0.3698546295730364,
+      "monthly_t": 3.4074974585024527
+    },
+    "equal_weight_PIT": {
+      "sharpe": 0.8105773408601105,
+      "ann_return": 0.13947398367864183,
+      "vol": 0.1815165098738892,
+      "max_drawdown": -0.3979633733795144,
+      "monthly_t": 3.7063147643029697
+    },
+    "SPY": {
+      "sharpe": 0.8633958650566452,
+      "ann_return": 0.14243709479794942,
+      "vol": 0.1713093949862493,
+      "max_drawdown": -0.33717276298387244,
+      "monthly_t": NaN
+    },
+    "EY_long_only_minus_EW": {
+      "sharpe": 0.3437876131132118,
+      "ann_return_diff": 0.012505703033665494,
+      "monthly_t": 1.449686987865025
+    }
+  },
+  "placebo": {
+    "n_seeds": 200,
+    "real_ls_sharpe": 0.22641922916691154,
+    "placebo_mean_sharpe": -0.4904922986737484,
+    "placebo_std_sharpe": 0.22717642588881082,
+    "placebo_p5": -0.8389034954823404,
+    "placebo_p95": -0.13376242960901918,
+    "real_percentile": 1.0,
+    "p_value_one_sided": 0.0
+  },
+  "diagnostics": {
+    "avg_members_per_period": 407.1707317073171,
+    "avg_usable_per_period": 365.7560975609756,
+    "avg_dropped_per_period": 41.41463414634146,
+    "frac_dropped": 0.11505645972684655,
+    "priced_names": 707,
+    "names_with_TTM": 678,
+    "names_with_shares": 698,
+    "names_with_EY": 668
+  },
+  "cycle10_contrast_gross_profitability": {
+    "gp_ls_sharpe": 0.012,
+    "gp_long_only_sharpe": 0.85,
+    "equal_weight_PIT_sharpe": 0.838,
+    "spy_sharpe": 0.856,
+    "verdict": "GP DEAD on PIT: long-only == equal-weight == SPY; L/S flat"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "run_id": "run-0011-20260615T170621Z",
+  "created_utc": "2026-06-15T17:06:21Z",
+  "cycle": 11,
+  "mode": "value (earnings-yield) PIT factor (Opus agent + orchestrator-finished eval)",
+  "idea_provenance": "continue the honest fundamentals re-test after cycle-10 gross profitability",
+  "strategies": [
+    {
+      "id": "value_earnings_yield_pit",
+      "family": "value",
+      "net_sharpe": 0.23,
+      "prior_art": "reimplements: earnings-yield value (PIT)",
+      "verdict": "REJECT (standalone); SIGNAL-SPECIFIC but sub-threshold",
+      "reason": "L/S Sharpe 0.23 (t=0.95); long-only-minus-equal-weight +1.3%/yr (t=1.45, <2). BUT placebo PASSES decisively (real at 100th pctile of 200 shuffles, p=0.0) - unlike gross profitability (p=0.51). Real, signal-specific, but economically sub-threshold on 2010+ large-cap PIT sample (value's weak decade). Keep as multi-factor composite component. Drop rate 11.5% (vs 40% cycle 10)."
+    }
+  ],
+  "survivors": 0,
+  "summary": "Value (earnings yield) on the honest universe: the first fundamental signal to PASS the placebo (p=0.0, signal-specific) post-survivorship-control - but economically sub-threshold (long-only-minus-EW t=1.45). Reject standalone; retain as a composite component. Placebo discipline shown to discriminate (killed GP, passed value). sp500_pit_union path worked; drop rate down to 11.5%.",
+  "next_cycle_seeds": [
+    "multi-factor composite sleeve (value + quality + low-vol), combining weak-but-real signals",
+    "data-reliability/determinism benchmark (agents-in-biology lesson)",
+    "paid delisting-complete prices to cut residual drop + add breadth/small-caps"
+  ],
+  "standing_recommendation": "voltarget_spy only validated standalone; value logged as composite component",
+  "artifacts": [
+    "cycle_11_report.md",
+    "value_earnings_yield_pit_analysis.json"
+  ]
+}
